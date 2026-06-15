@@ -1,7 +1,8 @@
 ﻿<UserControl x:Class="RentalManagementSystem.UI.Views.ReportView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:loc="clr-namespace:RentalManagementSystem.UI.Localization">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid Margin="24">
             <Grid.RowDefinitions>
@@ -10,16 +11,16 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Báo Cáo" Style="{StaticResource PageTitleStyle}" Margin="0,0,0,24" />
+            <TextBlock Grid.Row="0" Text="{loc:Tr S167}" Style="{StaticResource PageTitleStyle}" Margin="0,0,0,24" />
 
             <!-- Month/Year Filter -->
             <Border Grid.Row="1" Style="{StaticResource CardStyle}" Margin="0,0,0,24">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <iconPacks:PackIconMaterial Kind="Calendar" Width="20" Height="20" Foreground="{StaticResource PrimaryBrush}" VerticalAlignment="Center" />
-                    <TextBlock Text="Kỳ báo cáo:" VerticalAlignment="Center" FontWeight="Medium" />
-                    <TextBlock Text="Tháng" VerticalAlignment="Center" Foreground="{StaticResource TextSecondaryBrush}" />
+                    <TextBlock Text="{loc:Tr S168}" VerticalAlignment="Center" FontWeight="Medium" />
+                    <TextBlock Text="{loc:Tr S135}" VerticalAlignment="Center" Foreground="{StaticResource TextSecondaryBrush}" />
                     <TextBox Text="{Binding ReportMonth}" Width="60" Height="36" Padding="8,0" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
-                    <TextBlock Text="Năm" VerticalAlignment="Center" Foreground="{StaticResource TextSecondaryBrush}" />
+                    <TextBlock Text="{loc:Tr S169}" VerticalAlignment="Center" Foreground="{StaticResource TextSecondaryBrush}" />
                     <TextBox Text="{Binding ReportYear}" Width="80" Height="36" Padding="8,0" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
                 </StackPanel>
             </Border>
@@ -35,11 +36,11 @@
                                 <iconPacks:PackIconMaterial Kind="ChartBar" Width="32" Height="32" Foreground="{StaticResource PrimaryBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
                             <StackPanel>
-                                <TextBlock Text="Báo Cáo Doanh Thu" FontSize="15" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
-                                <TextBlock Text="Xuất theo tháng/năm" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Center" Margin="0,4,0,0" />
+                                <TextBlock Text="{loc:Tr S170}" FontSize="15" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
+                                <TextBlock Text="{loc:Tr S171}" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Center" Margin="0,4,0,0" />
                             </StackPanel>
                             <Border Background="{StaticResource PrimaryBrush}" CornerRadius="16" Padding="16,6" HorizontalAlignment="Center">
-                                <TextBlock Text="📥 Xuất Excel" Foreground="White" FontSize="12" />
+                                <TextBlock Text="{loc:Tr S172}" Foreground="White" FontSize="12" />
                             </Border>
                         </StackPanel>
                     </Button>
@@ -54,11 +55,11 @@
                                 <iconPacks:PackIconMaterial Kind="CurrencyUsd" Width="32" Height="32" Foreground="{StaticResource ErrorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
                             <StackPanel>
-                                <TextBlock Text="Báo Cáo Công Nợ" FontSize="15" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
-                                <TextBlock Text="Danh sách chưa thanh toán" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Center" Margin="0,4,0,0" />
+                                <TextBlock Text="{loc:Tr S173}" FontSize="15" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
+                                <TextBlock Text="{loc:Tr S174}" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Center" Margin="0,4,0,0" />
                             </StackPanel>
                             <Border Background="{StaticResource ErrorBrush}" CornerRadius="16" Padding="16,6" HorizontalAlignment="Center">
-                                <TextBlock Text="📥 Xuất Excel" Foreground="White" FontSize="12" />
+                                <TextBlock Text="{loc:Tr S172}" Foreground="White" FontSize="12" />
                             </Border>
                         </StackPanel>
                     </Button>
@@ -73,11 +74,11 @@
                                 <iconPacks:PackIconMaterial Kind="LightningBolt" Width="32" Height="32" Foreground="{StaticResource SuccessBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
                             <StackPanel>
-                                <TextBlock Text="Báo Cáo Điện Nước" FontSize="15" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
-                                <TextBlock Text="Theo tháng/năm" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Center" Margin="0,4,0,0" />
+                                <TextBlock Text="{loc:Tr S175}" FontSize="15" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
+                                <TextBlock Text="{loc:Tr S176}" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Center" Margin="0,4,0,0" />
                             </StackPanel>
                             <Border Background="{StaticResource SuccessBrush}" CornerRadius="16" Padding="16,6" HorizontalAlignment="Center">
-                                <TextBlock Text="📥 Xuất Excel" Foreground="White" FontSize="12" />
+                                <TextBlock Text="{loc:Tr S172}" Foreground="White" FontSize="12" />
                             </Border>
                         </StackPanel>
                     </Button>

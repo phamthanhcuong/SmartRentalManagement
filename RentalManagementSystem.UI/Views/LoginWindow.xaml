@@ -53,19 +53,19 @@
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconMaterial Kind="CheckCircle" Width="20" Height="20" Foreground="#4CAF50" />
-                            <TextBlock Text="Quản lý phòng trọ toàn diện" Foreground="#C9A9B3" FontSize="13" />
+                            <TextBlock Text="{loc:Tr S144}" Foreground="#C9A9B3" FontSize="13" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconMaterial Kind="CheckCircle" Width="20" Height="20" Foreground="#4CAF50" />
-                            <TextBlock Text="Hóa đơn điện nước tự động" Foreground="#C9A9B3" FontSize="13" />
+                            <TextBlock Text="{loc:Tr S145}" Foreground="#C9A9B3" FontSize="13" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconMaterial Kind="CheckCircle" Width="20" Height="20" Foreground="#4CAF50" />
-                            <TextBlock Text="Báo cáo doanh thu chi tiết" Foreground="#C9A9B3" FontSize="13" />
+                            <TextBlock Text="{loc:Tr S146}" Foreground="#C9A9B3" FontSize="13" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconMaterial Kind="CheckCircle" Width="20" Height="20" Foreground="#4CAF50" />
-                            <TextBlock Text="Xuất Excel &amp; PDF" Foreground="#C9A9B3" FontSize="13" />
+                            <TextBlock Text="{loc:Tr S147}" Foreground="#C9A9B3" FontSize="13" />
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
@@ -78,7 +78,7 @@
                     <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,12,12,0"
                            Width="32" Height="32" Click="CloseButton_Click"
                            Style="{StaticResource PrimaryButtonStyle}"
-                           ToolTip="Đóng">
+                           ToolTip="{loc:Tr S060}">
                         <iconPacks:PackIconMaterial Kind="Close" Width="14" Height="14" />
                     </Button>
 
@@ -152,7 +152,7 @@
                                             Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
                                             Visibility="{Binding ShowPassword, Converter={StaticResource BoolToVisibilityConverter}}" />
                                 <Button Grid.Column="2" Command="{Binding TogglePasswordCommand}"
-                                       BorderThickness="0" Background="Transparent" ToolTip="Hiện/ẩn mật khẩu">
+                                       BorderThickness="0" Background="Transparent" ToolTip="{loc:Tr S148}">
                                     <iconPacks:PackIconMaterial Width="18" Height="18" Foreground="#9E9E9E">
                                         <iconPacks:PackIconMaterial.Style>
                                             <Style TargetType="iconPacks:PackIconMaterial">
@@ -170,7 +170,7 @@
                         </Border>
 
                         <!-- Remember Me -->
-                        <CheckBox Content="Ghi nhớ đăng nhập" IsChecked="{Binding RememberMe}"
+                        <CheckBox Content="{loc:Tr S149}" IsChecked="{Binding RememberMe}"
                                  Foreground="#757575" Margin="0,0,0,32" />
 
                         <!-- Login Button -->
@@ -200,7 +200,7 @@
                                       Margin="8,0,0,0" VerticalAlignment="Center" />
                         </StackPanel>
 
-                        <TextBlock Text="© 2026 RentalSoft. Phiên bản 1.0.0"
+                        <TextBlock Text="{loc:Tr S150}"
                                   Foreground="#BDBDBD" FontSize="11" HorizontalAlignment="Center"
                                   Margin="0,32,0,0" />
                     </StackPanel>

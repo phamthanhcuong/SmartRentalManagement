@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:loc="clr-namespace:RentalManagementSystem.UI.Localization"
              xmlns:converters="clr-namespace:RentalManagementSystem.UI.Converters">
     <Grid Margin="24">
         <Grid.RowDefinitions>
@@ -13,7 +14,7 @@
 
         <!-- Header -->
         <Grid Grid.Row="0" Margin="0,0,0,16">
-            <TextBlock Text="Quản Lý Phòng" Style="{StaticResource PageTitleStyle}" />
+            <TextBlock Text="{loc:Tr S177}" Style="{StaticResource PageTitleStyle}" />
         </Grid>
 
         <!-- Thanh công cụ: tìm kiếm + thao tác trên dòng đang chọn -->
@@ -22,7 +23,7 @@
                 <Button Command="{Binding OpenAddDialogCommand}" Style="{StaticResource PrimaryButtonStyle}" Padding="14,9" FontSize="14">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconMaterial Kind="Plus" Width="15" Height="15" VerticalAlignment="Center" />
-                        <TextBlock Text="Thêm" VerticalAlignment="Center" Margin="6,0,0,0" />
+                        <TextBlock Text="{loc:Tr S002}" VerticalAlignment="Center" Margin="6,0,0,0" />
                     </StackPanel>
                 </Button>
                 <Button Command="{Binding OpenEditDialogCommand}" CommandParameter="{Binding SelectedRoom}"
@@ -30,7 +31,7 @@
                         Style="{StaticResource SecondaryButtonStyle}" Padding="14,9" FontSize="14" Margin="8,0,0,0">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconMaterial Kind="Pencil" Width="15" Height="15" VerticalAlignment="Center" />
-                        <TextBlock Text="Sửa" VerticalAlignment="Center" Margin="6,0,0,0" />
+                        <TextBlock Text="{loc:Tr S003}" VerticalAlignment="Center" Margin="6,0,0,0" />
                     </StackPanel>
                 </Button>
                 <Button Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedRoom}"
@@ -38,13 +39,13 @@
                         Style="{StaticResource DangerButtonStyle}" Padding="14,9" FontSize="14" Margin="8,0,0,0">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconMaterial Kind="Delete" Width="15" Height="15" VerticalAlignment="Center" />
-                        <TextBlock Text="Xóa" VerticalAlignment="Center" Margin="6,0,0,0" />
+                        <TextBlock Text="{loc:Tr S004}" VerticalAlignment="Center" Margin="6,0,0,0" />
                     </StackPanel>
                 </Button>
             </StackPanel>
             <TextBox Style="{StaticResource SearchBoxStyle}" Width="360" HorizontalAlignment="Left"
                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                    materialDesign:HintAssist.Hint="Tìm kiếm theo mã phòng, tên phòng..." />
+                    materialDesign:HintAssist.Hint="{loc:Tr S178}" />
         </DockPanel>
 
         <!-- Content -->
@@ -66,13 +67,13 @@
                          SelectedItem="{Binding SelectedRoom}"
                          Visibility="{Binding IsBusy, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Mã Phòng" Binding="{Binding RoomCode}" Width="100" />
-                        <DataGridTextColumn Header="Tên Phòng" Binding="{Binding RoomName}" Width="*" />
-                        <DataGridTextColumn Header="Khu Trọ" Binding="{Binding RentalArea.AreaName}" Width="150" />
-                        <DataGridTextColumn Header="Diện Tích (m²)" Binding="{Binding Area, StringFormat={}{0:N1}}" Width="110" />
-                        <DataGridTextColumn Header="Giá Thuê" Binding="{Binding Price, StringFormat={}{0:N0} ₫}" Width="130" />
-                        <DataGridTextColumn Header="Đặt Cọc" Binding="{Binding Deposit, StringFormat={}{0:N0} ₫}" Width="130" />
-                        <DataGridTemplateColumn Header="Trạng Thái" Width="120">
+                        <DataGridTextColumn Header="{loc:Tr S179}" Binding="{Binding RoomCode}" Width="100" />
+                        <DataGridTextColumn Header="{loc:Tr S180}" Binding="{Binding RoomName}" Width="*" />
+                        <DataGridTextColumn Header="{loc:Tr S181}" Binding="{Binding RentalArea.AreaName}" Width="150" />
+                        <DataGridTextColumn Header="{loc:Tr S182}" Binding="{Binding Area, StringFormat={}{0:N1}}" Width="110" />
+                        <DataGridTextColumn Header="{loc:Tr S183}" Binding="{Binding Price, StringFormat={}{0:N0} ₫}" Width="130" />
+                        <DataGridTextColumn Header="{loc:Tr S184}" Binding="{Binding Deposit, StringFormat={}{0:N0} ₫}" Width="130" />
+                        <DataGridTemplateColumn Header="{loc:Tr S185}" Width="120">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border CornerRadius="12" Padding="10,4" HorizontalAlignment="Center">
@@ -152,7 +153,7 @@
 
                         <!-- Mã phòng -->
                         <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,0,16">
-                            <TextBlock Text="Mã phòng *" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{loc:Tr S186}" Style="{StaticResource FormLabelStyle}" />
                             <TextBox Text="{Binding FormRoomCode, UpdateSourceTrigger=PropertyChanged}"
                                     materialDesign:HintAssist.Hint="VD: P101"
                                     Height="40" Padding="12,0" BorderThickness="1"
@@ -161,16 +162,16 @@
 
                         <!-- Tên phòng -->
                         <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,0,0,16">
-                            <TextBlock Text="Tên phòng" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{loc:Tr S187}" Style="{StaticResource FormLabelStyle}" />
                             <TextBox Text="{Binding FormRoomName, UpdateSourceTrigger=PropertyChanged}"
-                                    materialDesign:HintAssist.Hint="VD: Phòng 101"
+                                    materialDesign:HintAssist.Hint="{loc:Tr S188}"
                                     Height="40" Padding="12,0" BorderThickness="1"
                                     BorderBrush="{StaticResource DividerBrush}" />
                         </StackPanel>
 
                         <!-- Khu trọ -->
                         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,16">
-                            <TextBlock Text="Khu trọ *" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{loc:Tr S189}" Style="{StaticResource FormLabelStyle}" />
                             <ComboBox ItemsSource="{Binding Areas}"
                                      SelectedValuePath="Id"
                                      SelectedValue="{Binding FormAreaId}"
@@ -180,13 +181,13 @@
 
                         <!-- Diện tích + Giá -->
                         <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,0,16">
-                            <TextBlock Text="Diện tích (m²)" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{loc:Tr S190}" Style="{StaticResource FormLabelStyle}" />
                             <TextBox Text="{Binding FormArea, UpdateSourceTrigger=PropertyChanged}"
                                     Height="40" Padding="12,0" BorderThickness="1"
                                     BorderBrush="{StaticResource DividerBrush}" />
                         </StackPanel>
                         <StackPanel Grid.Row="2" Grid.Column="2" Margin="0,0,0,16">
-                            <TextBlock Text="Giá thuê (₫/tháng) *" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{loc:Tr S191}" Style="{StaticResource FormLabelStyle}" />
                             <TextBox Text="{Binding FormPrice, UpdateSourceTrigger=PropertyChanged}"
                                     Height="40" Padding="12,0" BorderThickness="1"
                                     BorderBrush="{StaticResource DividerBrush}" />
@@ -194,13 +195,13 @@
 
                         <!-- Đặt cọc + Người ở tối đa -->
                         <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,0,16">
-                            <TextBlock Text="Tiền đặt cọc (₫)" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{loc:Tr S049}" Style="{StaticResource FormLabelStyle}" />
                             <TextBox Text="{Binding FormDeposit, UpdateSourceTrigger=PropertyChanged}"
                                     Height="40" Padding="12,0" BorderThickness="1"
                                     BorderBrush="{StaticResource DividerBrush}" />
                         </StackPanel>
                         <StackPanel Grid.Row="3" Grid.Column="2" Margin="0,0,0,16">
-                            <TextBlock Text="Người ở tối đa" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{loc:Tr S192}" Style="{StaticResource FormLabelStyle}" />
                             <TextBox Text="{Binding FormMaxOccupants, UpdateSourceTrigger=PropertyChanged}"
                                     Height="40" Padding="12,0" BorderThickness="1"
                                     BorderBrush="{StaticResource DividerBrush}" />
@@ -208,7 +209,7 @@
 
                         <!-- Ghi chú -->
                         <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,0">
-                            <TextBlock Text="Mô tả" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{loc:Tr S120}" Style="{StaticResource FormLabelStyle}" />
                             <TextBox Text="{Binding FormDescription, UpdateSourceTrigger=PropertyChanged}"
                                     Height="80" Padding="12,8" BorderThickness="1" AcceptsReturn="True"
                                     BorderBrush="{StaticResource DividerBrush}" TextWrapping="Wrap" />
@@ -223,9 +224,9 @@
                     <!-- Buttons -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                                Margin="0,20,0,0">
-                        <Button Content="Hủy" Style="{StaticResource SecondaryButtonStyle}"
+                        <Button Content="{loc:Tr S015}" Style="{StaticResource SecondaryButtonStyle}"
                                Command="{Binding CloseDialogCommand}" Padding="24,10" />
-                        <Button Content="Lưu" Style="{StaticResource PrimaryButtonStyle}"
+                        <Button Content="{loc:Tr S016}" Style="{StaticResource PrimaryButtonStyle}"
                                Command="{Binding SaveCommand}" Padding="24,10" />
                     </StackPanel>
                 </StackPanel>

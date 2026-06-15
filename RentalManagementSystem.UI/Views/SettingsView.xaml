@@ -38,18 +38,18 @@
                         <Border Width="40" Height="40" CornerRadius="20" Background="#F7E9EE">
                             <iconPacks:PackIconMaterial Kind="Lock" Width="20" Height="20" Foreground="{StaticResource PrimaryBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
-                        <TextBlock Text="Đổi Mật Khẩu" Style="{StaticResource SectionTitleStyle}" VerticalAlignment="Center" />
+                        <TextBlock Text="{loc:Tr S200}" Style="{StaticResource SectionTitleStyle}" VerticalAlignment="Center" />
                     </StackPanel>
 
-                    <TextBlock Text="Mật khẩu hiện tại" Style="{StaticResource FormLabelStyle}" />
+                    <TextBlock Text="{loc:Tr S201}" Style="{StaticResource FormLabelStyle}" />
                     <PasswordBox x:Name="OldPwdBox" Height="40" Padding="12,0" BorderThickness="1"
                                 BorderBrush="{StaticResource DividerBrush}" Margin="0,0,0,12"
                                 PasswordChanged="OldPwdBox_Changed" />
-                    <TextBlock Text="Mật khẩu mới" Style="{StaticResource FormLabelStyle}" />
+                    <TextBlock Text="{loc:Tr S202}" Style="{StaticResource FormLabelStyle}" />
                     <PasswordBox x:Name="NewPwdBox" Height="40" Padding="12,0" BorderThickness="1"
                                 BorderBrush="{StaticResource DividerBrush}" Margin="0,0,0,12"
                                 PasswordChanged="NewPwdBox_Changed" />
-                    <TextBlock Text="Xác nhận mật khẩu mới" Style="{StaticResource FormLabelStyle}" />
+                    <TextBlock Text="{loc:Tr S203}" Style="{StaticResource FormLabelStyle}" />
                     <PasswordBox x:Name="ConfirmPwdBox" Height="40" Padding="12,0" BorderThickness="1"
                                 BorderBrush="{StaticResource DividerBrush}" Margin="0,0,0,16"
                                 PasswordChanged="ConfirmPwdBox_Changed" />
@@ -59,7 +59,7 @@
                     <TextBlock Text="{Binding SuccessMessage}" Foreground="{StaticResource SuccessBrush}"
                               Visibility="{Binding SuccessMessage, Converter={StaticResource NullToVisibilityConverter}}" Margin="0,0,0,8" />
 
-                    <Button Content="Đổi mật khẩu" Style="{StaticResource PrimaryButtonStyle}"
+                    <Button Content="{loc:Tr S204}" Style="{StaticResource PrimaryButtonStyle}"
                            Command="{Binding ChangePasswordCommand}" Padding="24,10" HorizontalAlignment="Left" />
                 </StackPanel>
             </Border>
@@ -71,41 +71,41 @@
                         <Border Width="40" Height="40" CornerRadius="20" Background="#F7E9EE">
                             <iconPacks:PackIconMaterial Kind="Cog" Width="20" Height="20" Foreground="{StaticResource PrimaryBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
-                        <TextBlock Text="Cấu Hình Hệ Thống" Style="{StaticResource SectionTitleStyle}" VerticalAlignment="Center" />
+                        <TextBlock Text="{loc:Tr S205}" Style="{StaticResource SectionTitleStyle}" VerticalAlignment="Center" />
                     </StackPanel>
-                    <TextBlock Text="Tên nhà trọ (in trên hóa đơn)" Style="{StaticResource FormLabelStyle}" />
+                    <TextBlock Text="{loc:Tr S206}" Style="{StaticResource FormLabelStyle}" />
                     <TextBox Text="{Binding CompanyName}" Height="38" Padding="12,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" Margin="0,0,0,10" />
-                    <TextBlock Text="Địa chỉ" Style="{StaticResource FormLabelStyle}" />
+                    <TextBlock Text="{loc:Tr S159}" Style="{StaticResource FormLabelStyle}" />
                     <TextBox Text="{Binding CompanyAddress}" Height="38" Padding="12,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" Margin="0,0,0,10" />
                     <Grid Margin="0,0,0,10">
                         <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="10" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
-                            <TextBlock Text="Số điện thoại" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{loc:Tr S207}" Style="{StaticResource FormLabelStyle}" />
                             <TextBox Text="{Binding CompanyPhone}" Height="38" Padding="12,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
                         </StackPanel>
                         <StackPanel Grid.Column="2">
-                            <TextBlock Text="Số tài khoản" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{loc:Tr S208}" Style="{StaticResource FormLabelStyle}" />
                             <TextBox Text="{Binding BankAccount}" Height="38" Padding="12,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
                         </StackPanel>
                     </Grid>
-                    <TextBlock Text="Ngân hàng" Style="{StaticResource FormLabelStyle}" />
+                    <TextBlock Text="{loc:Tr S209}" Style="{StaticResource FormLabelStyle}" />
                     <TextBox Text="{Binding BankName}" Height="38" Padding="12,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" Margin="0,0,0,10" />
                     <Grid Margin="0,0,0,10">
                         <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="10" /><ColumnDefinition Width="*" /><ColumnDefinition Width="10" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
-                            <TextBlock Text="Giá điện (₫/kWh)" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{loc:Tr S210}" Style="{StaticResource FormLabelStyle}" />
                             <TextBox Text="{Binding DefaultElectricPrice}" Height="38" Padding="12,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
                         </StackPanel>
                         <StackPanel Grid.Column="2">
-                            <TextBlock Text="Giá nước (₫/m³)" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{loc:Tr S211}" Style="{StaticResource FormLabelStyle}" />
                             <TextBox Text="{Binding DefaultWaterPrice}" Height="38" Padding="12,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
                         </StackPanel>
                         <StackPanel Grid.Column="4">
-                            <TextBlock Text="Phí trễ hạn (%)" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{loc:Tr S212}" Style="{StaticResource FormLabelStyle}" />
                             <TextBox Text="{Binding LateFeePercent}" Height="38" Padding="12,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
                         </StackPanel>
                     </Grid>
-                    <Button Content="Lưu cấu hình" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding SaveSettingsCommand}" Padding="24,10" HorizontalAlignment="Left" Margin="0,6,0,0" />
+                    <Button Content="{loc:Tr S213}" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding SaveSettingsCommand}" Padding="24,10" HorizontalAlignment="Left" Margin="0,6,0,0" />
                 </StackPanel>
             </Border>
 
@@ -116,21 +116,21 @@
                         <Border Width="40" Height="40" CornerRadius="20" Background="#F7E9EE">
                             <iconPacks:PackIconMaterial Kind="DatabaseCog" Width="20" Height="20" Foreground="{StaticResource PrimaryBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
-                        <TextBlock Text="Sao Lưu &amp; Phục Hồi Dữ Liệu" Style="{StaticResource SectionTitleStyle}" VerticalAlignment="Center" />
+                        <TextBlock Text="{loc:Tr S214}" Style="{StaticResource SectionTitleStyle}" VerticalAlignment="Center" />
                     </StackPanel>
-                    <TextBlock Text="Hãy sao lưu định kỳ để tránh mất dữ liệu khi máy hỏng. Lưu bản sao vào USB hoặc ổ đám mây."
+                    <TextBlock Text="{loc:Tr S215}"
                                Foreground="{StaticResource TextSecondaryBrush}" FontSize="13" TextWrapping="Wrap" Margin="0,0,0,16" />
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{StaticResource SuccessButtonStyle}" Command="{Binding BackupCommand}" Padding="20,12" FontSize="15">
                             <StackPanel Orientation="Horizontal">
                                 <iconPacks:PackIconMaterial Kind="ContentSave" Width="18" Height="18" VerticalAlignment="Center" />
-                                <TextBlock Text="Sao lưu ngay" VerticalAlignment="Center" Margin="8,0,0,0" />
+                                <TextBlock Text="{loc:Tr S216}" VerticalAlignment="Center" Margin="8,0,0,0" />
                             </StackPanel>
                         </Button>
                         <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding RestoreCommand}" Padding="20,12" FontSize="15" Margin="12,0,0,0">
                             <StackPanel Orientation="Horizontal">
                                 <iconPacks:PackIconMaterial Kind="Restore" Width="18" Height="18" VerticalAlignment="Center" />
-                                <TextBlock Text="Phục hồi" VerticalAlignment="Center" Margin="8,0,0,0" />
+                                <TextBlock Text="{loc:Tr S217}" VerticalAlignment="Center" Margin="8,0,0,0" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
@@ -144,16 +144,16 @@
                         <Border Width="40" Height="40" CornerRadius="20" Background="#E8F5E9">
                             <iconPacks:PackIconMaterial Kind="Information" Width="20" Height="20" Foreground="{StaticResource SuccessBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
-                        <TextBlock Text="Thông Tin Hệ Thống" Style="{StaticResource SectionTitleStyle}" VerticalAlignment="Center" />
+                        <TextBlock Text="{loc:Tr S218}" Style="{StaticResource SectionTitleStyle}" VerticalAlignment="Center" />
                     </StackPanel>
                     <Grid>
                         <Grid.ColumnDefinitions><ColumnDefinition Width="160" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="32" /><RowDefinition Height="32" /><RowDefinition Height="32" />
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Tên phần mềm:" Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center" />
-                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Quản Lý Nhà Trọ" FontWeight="Medium" VerticalAlignment="Center" />
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Phiên bản:" Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center" />
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{loc:Tr S219}" Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{loc:Tr S220}" FontWeight="Medium" VerticalAlignment="Center" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{loc:Tr S221}" Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center" />
                         <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding AppVersion}" FontWeight="Medium" VerticalAlignment="Center" />
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Database:" Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center" />
                         <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding DbPath}" FontWeight="Medium" VerticalAlignment="Center" TextWrapping="Wrap" FontSize="11" />

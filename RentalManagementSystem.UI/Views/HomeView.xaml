@@ -1,7 +1,8 @@
 <UserControl x:Class="RentalManagementSystem.UI.Views.HomeView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:loc="clr-namespace:RentalManagementSystem.UI.Localization">
     <UserControl.Resources>
         <!-- Ô lớn 1 chạm -->
         <Style x:Key="HomeTile" TargetType="Button">
@@ -37,7 +38,7 @@
             <TextBlock Text="{Binding Today}" FontSize="17" Foreground="#5A5A5A" Margin="0,4,0,0" />
 
             <!-- Quy trình hàng tháng -->
-            <TextBlock Text="Việc làm hàng tháng — làm lần lượt 1 → 2 → 3" FontSize="18" FontWeight="SemiBold"
+            <TextBlock Text="{loc:Tr S094}" FontSize="18" FontWeight="SemiBold"
                        Foreground="#4E0F25" Margin="10,28,0,4" />
             <UniformGrid Rows="1" Columns="3">
                 <Button Style="{StaticResource StepTile}" Command="{Binding GoCommand}" CommandParameter="DienNuoc">
@@ -46,8 +47,8 @@
                             <TextBlock Text="1" FontSize="26" FontWeight="Bold" Foreground="#7A1E3A"
                                        HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
-                        <TextBlock Text="Nhập điện nước" FontSize="20" FontWeight="Bold" Margin="0,14,0,2" />
-                        <TextBlock Text="Ghi số điện, số nước các phòng" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
+                        <TextBlock Text="{loc:Tr S095}" FontSize="20" FontWeight="Bold" Margin="0,14,0,2" />
+                        <TextBlock Text="{loc:Tr S096}" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
                     </StackPanel>
                 </Button>
                 <Button Style="{StaticResource StepTile}" Command="{Binding GoCommand}" CommandParameter="HoaDon">
@@ -56,8 +57,8 @@
                             <TextBlock Text="2" FontSize="26" FontWeight="Bold" Foreground="#7A1E3A"
                                        HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
-                        <TextBlock Text="Tạo hóa đơn" FontSize="20" FontWeight="Bold" Margin="0,14,0,2" />
-                        <TextBlock Text="Tính tiền tháng này cho các phòng" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
+                        <TextBlock Text="{loc:Tr S097}" FontSize="20" FontWeight="Bold" Margin="0,14,0,2" />
+                        <TextBlock Text="{loc:Tr S098}" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
                     </StackPanel>
                 </Button>
                 <Button Style="{StaticResource StepTile}" Command="{Binding GoCommand}" CommandParameter="HoaDon">
@@ -66,55 +67,55 @@
                             <TextBlock Text="3" FontSize="26" FontWeight="Bold" Foreground="#7A1E3A"
                                        HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
-                        <TextBlock Text="Thu tiền &amp; In" FontSize="20" FontWeight="Bold" Margin="0,14,0,2" />
-                        <TextBlock Text="Nhận tiền và in hóa đơn cho khách" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
+                        <TextBlock Text="{loc:Tr S099}" FontSize="20" FontWeight="Bold" Margin="0,14,0,2" />
+                        <TextBlock Text="{loc:Tr S100}" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
                     </StackPanel>
                 </Button>
             </UniformGrid>
 
             <!-- Các việc khác -->
-            <TextBlock Text="Các mục khác" FontSize="18" FontWeight="SemiBold" Foreground="#4E0F25" Margin="10,24,0,4" />
+            <TextBlock Text="{loc:Tr S101}" FontSize="18" FontWeight="SemiBold" Foreground="#4E0F25" Margin="10,24,0,4" />
             <UniformGrid Rows="2" Columns="3">
                 <Button Style="{StaticResource HomeTile}" Command="{Binding GoCommand}" CommandParameter="Phong">
                     <StackPanel>
                         <iconPacks:PackIconMaterial Kind="DoorOpen" Width="40" Height="40" Foreground="#7A1E3A" />
-                        <TextBlock Text="Phòng trọ" FontSize="19" FontWeight="Bold" Margin="0,12,0,2" />
-                        <TextBlock Text="Xem và quản lý các phòng" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
+                        <TextBlock Text="{loc:Tr S102}" FontSize="19" FontWeight="Bold" Margin="0,12,0,2" />
+                        <TextBlock Text="{loc:Tr S103}" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
                     </StackPanel>
                 </Button>
                 <Button Style="{StaticResource HomeTile}" Command="{Binding GoCommand}" CommandParameter="KhachThue">
                     <StackPanel>
                         <iconPacks:PackIconMaterial Kind="AccountGroup" Width="40" Height="40" Foreground="#7A1E3A" />
-                        <TextBlock Text="Khách thuê" FontSize="19" FontWeight="Bold" Margin="0,12,0,2" />
-                        <TextBlock Text="Thông tin người thuê &amp; xe" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
+                        <TextBlock Text="{loc:Tr S104}" FontSize="19" FontWeight="Bold" Margin="0,12,0,2" />
+                        <TextBlock Text="{loc:Tr S105}" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
                     </StackPanel>
                 </Button>
                 <Button Style="{StaticResource HomeTile}" Command="{Binding GoCommand}" CommandParameter="HopDong">
                     <StackPanel>
                         <iconPacks:PackIconMaterial Kind="FileDocument" Width="40" Height="40" Foreground="#7A1E3A" />
-                        <TextBlock Text="Hợp đồng" FontSize="19" FontWeight="Bold" Margin="0,12,0,2" />
-                        <TextBlock Text="Tạo, gia hạn, trả phòng" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
+                        <TextBlock Text="{loc:Tr S106}" FontSize="19" FontWeight="Bold" Margin="0,12,0,2" />
+                        <TextBlock Text="{loc:Tr S107}" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
                     </StackPanel>
                 </Button>
                 <Button Style="{StaticResource HomeTile}" Command="{Binding GoCommand}" CommandParameter="TraCuuXe">
                     <StackPanel>
                         <iconPacks:PackIconMaterial Kind="Motorbike" Width="40" Height="40" Foreground="#7A1E3A" />
-                        <TextBlock Text="Tra cứu xe" FontSize="19" FontWeight="Bold" Margin="0,12,0,2" />
-                        <TextBlock Text="Tìm xe theo biển số" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
+                        <TextBlock Text="{loc:Tr S108}" FontSize="19" FontWeight="Bold" Margin="0,12,0,2" />
+                        <TextBlock Text="{loc:Tr S109}" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
                     </StackPanel>
                 </Button>
                 <Button Style="{StaticResource HomeTile}" Command="{Binding GoCommand}" CommandParameter="ThuChi">
                     <StackPanel>
                         <iconPacks:PackIconMaterial Kind="CurrencyUsd" Width="40" Height="40" Foreground="#7A1E3A" />
                         <TextBlock Text="Thu chi" FontSize="19" FontWeight="Bold" Margin="0,12,0,2" />
-                        <TextBlock Text="Sổ tiền vào - ra" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
+                        <TextBlock Text="{loc:Tr S110}" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
                     </StackPanel>
                 </Button>
                 <Button Style="{StaticResource HomeTile}" Command="{Binding GoCommand}" CommandParameter="BaoCao">
                     <StackPanel>
                         <iconPacks:PackIconMaterial Kind="ChartBar" Width="40" Height="40" Foreground="#7A1E3A" />
-                        <TextBlock Text="Báo cáo" FontSize="19" FontWeight="Bold" Margin="0,12,0,2" />
-                        <TextBlock Text="Doanh thu, công nợ" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
+                        <TextBlock Text="{loc:Tr S111}" FontSize="19" FontWeight="Bold" Margin="0,12,0,2" />
+                        <TextBlock Text="{loc:Tr S112}" FontSize="14" Foreground="#6A6A6A" TextWrapping="Wrap" />
                     </StackPanel>
                 </Button>
             </UniformGrid>

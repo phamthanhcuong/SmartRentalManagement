@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:loc="clr-namespace:RentalManagementSystem.UI.Localization">
     <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -11,32 +12,32 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="0,0,0,20">
-            <TextBlock Text="Quản Lý Điện Nước" Style="{StaticResource PageTitleStyle}" />
+            <TextBlock Text="{loc:Tr S241}" Style="{StaticResource PageTitleStyle}" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Command="{Binding OpenBatchEntryCommand}" Style="{StaticResource SuccessButtonStyle}" Margin="0,0,10,0">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconMaterial Kind="LightningBolt" Width="16" Height="16" VerticalAlignment="Center" />
-                        <TextBlock Text="Nhập nhanh tất cả phòng" VerticalAlignment="Center" Margin="6,0,0,0" />
+                        <TextBlock Text="{loc:Tr S242}" VerticalAlignment="Center" Margin="6,0,0,0" />
                     </StackPanel>
                 </Button>
                 <Button Command="{Binding OpenAddDialogCommand}" Style="{StaticResource PrimaryButtonStyle}">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconMaterial Kind="Plus" Width="16" Height="16" VerticalAlignment="Center" />
-                        <TextBlock Text="Nhập chỉ số" VerticalAlignment="Center" Margin="6,0,0,0" />
+                        <TextBlock Text="{loc:Tr S243}" VerticalAlignment="Center" Margin="6,0,0,0" />
                     </StackPanel>
                 </Button>
                 <Button Command="{Binding OpenEditDialogCommand}" CommandParameter="{Binding SelectedReading}" IsEnabled="{Binding SelectedReading, Converter={StaticResource NotNullToBoolConverter}}" Style="{StaticResource SecondaryButtonStyle}" Padding="14,9" FontSize="14" Margin="10,0,0,0">
-                    <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="Pencil" Width="15" Height="15" VerticalAlignment="Center" /><TextBlock Text="Sửa" VerticalAlignment="Center" Margin="6,0,0,0" /></StackPanel>
+                    <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="Pencil" Width="15" Height="15" VerticalAlignment="Center" /><TextBlock Text="{loc:Tr S003}" VerticalAlignment="Center" Margin="6,0,0,0" /></StackPanel>
                 </Button>
                 <Button Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedReading}" IsEnabled="{Binding SelectedReading, Converter={StaticResource NotNullToBoolConverter}}" Style="{StaticResource DangerButtonStyle}" Padding="14,9" FontSize="14" Margin="8,0,0,0">
-                    <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="Delete" Width="15" Height="15" VerticalAlignment="Center" /><TextBlock Text="Xóa" VerticalAlignment="Center" Margin="6,0,0,0" /></StackPanel>
+                    <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="Delete" Width="15" Height="15" VerticalAlignment="Center" /><TextBlock Text="{loc:Tr S004}" VerticalAlignment="Center" Margin="6,0,0,0" /></StackPanel>
                 </Button>
             </StackPanel>
         </Grid>
 
         <!-- Filter -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,16">
-            <TextBlock Text="Tháng:" VerticalAlignment="Center" />
+            <TextBlock Text="{loc:Tr S113}" VerticalAlignment="Center" />
             <ComboBox SelectedValue="{Binding FilterMonth}" Width="80" Height="36">
                 <ComboBoxItem Content="1" Tag="1" />
                 <ComboBoxItem Content="2" Tag="2" />
@@ -51,16 +52,16 @@
                 <ComboBoxItem Content="11" Tag="11" />
                 <ComboBoxItem Content="12" Tag="12" />
             </ComboBox>
-            <TextBlock Text="Năm:" VerticalAlignment="Center" />
+            <TextBlock Text="{loc:Tr S114}" VerticalAlignment="Center" />
             <TextBox Text="{Binding FilterYear}" Width="80" Height="36" Padding="8,0" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
-            <Button Content="Lọc" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding FilterCommand}" Padding="20,8" />
+            <Button Content="{loc:Tr S115}" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding FilterCommand}" Padding="20,8" />
         </StackPanel>
 
         <Border Grid.Row="2" Style="{StaticResource CardStyle}">
             <DataGrid Style="{StaticResource ModernDataGridStyle}" ItemsSource="{Binding Readings}" SelectedItem="{Binding SelectedReading}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Phòng" Binding="{Binding Room.RoomCode}" Width="80" />
-                    <DataGridTextColumn Header="Tháng/Năm" Width="100">
+                    <DataGridTextColumn Header="{loc:Tr S038}" Binding="{Binding Room.RoomCode}" Width="80" />
+                    <DataGridTextColumn Header="{loc:Tr S244}" Width="100">
                         <DataGridTextColumn.Binding>
                             <MultiBinding StringFormat="{}{0:D2}/{1}">
                                 <Binding Path="Month" />
@@ -68,14 +69,14 @@
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Điện cũ" Binding="{Binding ElectricOld}" Width="90" />
-                    <DataGridTextColumn Header="Điện mới" Binding="{Binding ElectricNew}" Width="90" />
-                    <DataGridTextColumn Header="KWh dùng" Binding="{Binding ElectricUsage, StringFormat={}{0:N0}}" Width="90" />
-                    <DataGridTextColumn Header="Tiền điện" Binding="{Binding ElectricAmount, StringFormat={}{0:N0} ₫}" Width="110" />
-                    <DataGridTextColumn Header="Nước cũ" Binding="{Binding WaterOld}" Width="90" />
-                    <DataGridTextColumn Header="Nước mới" Binding="{Binding WaterNew}" Width="90" />
-                    <DataGridTextColumn Header="Tiền nước" Binding="{Binding WaterAmount, StringFormat={}{0:N0} ₫}" Width="110" />
-                    <DataGridTextColumn Header="Tổng cộng" Binding="{Binding TotalAmount, StringFormat={}{0:N0} ₫}" Width="120" />
+                    <DataGridTextColumn Header="{loc:Tr S245}" Binding="{Binding ElectricOld}" Width="90" />
+                    <DataGridTextColumn Header="{loc:Tr S246}" Binding="{Binding ElectricNew}" Width="90" />
+                    <DataGridTextColumn Header="{loc:Tr S247}" Binding="{Binding ElectricUsage, StringFormat={}{0:N0}}" Width="90" />
+                    <DataGridTextColumn Header="{loc:Tr S248}" Binding="{Binding ElectricAmount, StringFormat={}{0:N0} ₫}" Width="110" />
+                    <DataGridTextColumn Header="{loc:Tr S249}" Binding="{Binding WaterOld}" Width="90" />
+                    <DataGridTextColumn Header="{loc:Tr S250}" Binding="{Binding WaterNew}" Width="90" />
+                    <DataGridTextColumn Header="{loc:Tr S251}" Binding="{Binding WaterAmount, StringFormat={}{0:N0} ₫}" Width="110" />
+                    <DataGridTextColumn Header="{loc:Tr S252}" Binding="{Binding TotalAmount, StringFormat={}{0:N0} ₫}" Width="120" />
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
@@ -85,7 +86,7 @@
             <Border Background="#80000000" />
             <Border MaxWidth="500" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource CardStyle}">
                 <StackPanel>
-                    <TextBlock Text="Nhập chỉ số điện nước" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,20" />
+                    <TextBlock Text="{loc:Tr S253}" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,20" />
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" /><ColumnDefinition Width="16" /><ColumnDefinition Width="*" />
@@ -96,15 +97,15 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,12">
-                            <TextBlock Text="Phòng *" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{loc:Tr S047}" Style="{StaticResource FormLabelStyle}" />
                             <ComboBox ItemsSource="{Binding Rooms}" SelectedValuePath="Id" SelectedValue="{Binding FormRoomId}" DisplayMemberPath="RoomCode" Height="40" />
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,0,12">
-                            <TextBlock Text="Tháng" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{loc:Tr S135}" Style="{StaticResource FormLabelStyle}" />
                             <TextBox Text="{Binding FormMonth}" Height="40" Padding="12,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,0,0,12">
-                            <TextBlock Text="Năm" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{loc:Tr S169}" Style="{StaticResource FormLabelStyle}" />
                             <TextBox Text="{Binding FormYear}" Height="40" Padding="12,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
                         </StackPanel>
 
@@ -112,21 +113,21 @@
                             <Grid>
                                 <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="16" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
-                                    <TextBlock Text="⚡ ĐIỆN" FontWeight="Bold" Foreground="#7A1E3A" Margin="0,0,0,8" />
-                                    <TextBlock Text="Chỉ số cũ" Style="{StaticResource FormLabelStyle}" />
+                                    <TextBlock Text="{loc:Tr S254}" FontWeight="Bold" Foreground="#7A1E3A" Margin="0,0,0,8" />
+                                    <TextBlock Text="{loc:Tr S255}" Style="{StaticResource FormLabelStyle}" />
                                     <TextBox Text="{Binding FormElectricOld, UpdateSourceTrigger=PropertyChanged}" Height="36" Padding="8,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" Background="White" />
-                                    <TextBlock Text="Chỉ số mới" Style="{StaticResource FormLabelStyle}" Margin="0,8,0,0" />
+                                    <TextBlock Text="{loc:Tr S256}" Style="{StaticResource FormLabelStyle}" Margin="0,8,0,0" />
                                     <TextBox Text="{Binding FormElectricNew, UpdateSourceTrigger=PropertyChanged}" Height="36" Padding="8,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" Background="White" />
-                                    <TextBlock Text="Đơn giá (₫/kWh)" Style="{StaticResource FormLabelStyle}" Margin="0,8,0,0" />
+                                    <TextBlock Text="{loc:Tr S257}" Style="{StaticResource FormLabelStyle}" Margin="0,8,0,0" />
                                     <TextBox Text="{Binding FormElectricPrice}" Height="36" Padding="8,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" Background="White" />
                                 </StackPanel>
                                 <StackPanel Grid.Column="2">
-                                    <TextBlock Text="💧 NƯỚC" FontWeight="Bold" Foreground="#00796B" Margin="0,0,0,8" />
-                                    <TextBlock Text="Chỉ số cũ" Style="{StaticResource FormLabelStyle}" />
+                                    <TextBlock Text="{loc:Tr S258}" FontWeight="Bold" Foreground="#00796B" Margin="0,0,0,8" />
+                                    <TextBlock Text="{loc:Tr S255}" Style="{StaticResource FormLabelStyle}" />
                                     <TextBox Text="{Binding FormWaterOld, UpdateSourceTrigger=PropertyChanged}" Height="36" Padding="8,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" Background="White" />
-                                    <TextBlock Text="Chỉ số mới" Style="{StaticResource FormLabelStyle}" Margin="0,8,0,0" />
+                                    <TextBlock Text="{loc:Tr S256}" Style="{StaticResource FormLabelStyle}" Margin="0,8,0,0" />
                                     <TextBox Text="{Binding FormWaterNew, UpdateSourceTrigger=PropertyChanged}" Height="36" Padding="8,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" Background="White" />
-                                    <TextBlock Text="Đơn giá (₫/m³)" Style="{StaticResource FormLabelStyle}" Margin="0,8,0,0" />
+                                    <TextBlock Text="{loc:Tr S259}" Style="{StaticResource FormLabelStyle}" Margin="0,8,0,0" />
                                     <TextBox Text="{Binding FormWaterPrice}" Height="36" Padding="8,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" Background="White" />
                                 </StackPanel>
                             </Grid>
@@ -136,15 +137,15 @@
                             <Grid>
                                 <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="*" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0" HorizontalAlignment="Center">
-                                    <TextBlock Text="Tiền điện" FontSize="11" Foreground="#757575" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{loc:Tr S248}" FontSize="11" Foreground="#757575" HorizontalAlignment="Center" />
                                     <TextBlock Text="{Binding PreviewElectricAmount, StringFormat={}{0:N0} ₫}" FontWeight="Bold" Foreground="#7A1E3A" FontSize="15" HorizontalAlignment="Center" />
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" HorizontalAlignment="Center">
-                                    <TextBlock Text="Tiền nước" FontSize="11" Foreground="#757575" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{loc:Tr S251}" FontSize="11" Foreground="#757575" HorizontalAlignment="Center" />
                                     <TextBlock Text="{Binding PreviewWaterAmount, StringFormat={}{0:N0} ₫}" FontWeight="Bold" Foreground="#00796B" FontSize="15" HorizontalAlignment="Center" />
                                 </StackPanel>
                                 <StackPanel Grid.Column="2" HorizontalAlignment="Center">
-                                    <TextBlock Text="TỔNG CỘNG" FontSize="11" Foreground="#757575" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{loc:Tr S260}" FontSize="11" Foreground="#757575" HorizontalAlignment="Center" />
                                     <TextBlock Text="{Binding PreviewTotal, StringFormat={}{0:N0} ₫}" FontWeight="Bold" Foreground="#E65100" FontSize="15" HorizontalAlignment="Center" />
                                 </StackPanel>
                             </Grid>
@@ -154,8 +155,8 @@
                     <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource ErrorBrush}"
                               Visibility="{Binding ErrorMessage, Converter={StaticResource NullToVisibilityConverter}}" />
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
-                        <Button Content="Hủy" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding CloseDialogCommand}" Padding="24,10" />
-                        <Button Content="Lưu" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding SaveCommand}" Padding="24,10" />
+                        <Button Content="{loc:Tr S015}" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding CloseDialogCommand}" Padding="24,10" />
+                        <Button Content="{loc:Tr S016}" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding SaveCommand}" Padding="24,10" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -167,31 +168,31 @@
             <Border MaxWidth="900" MaxHeight="640" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource CardStyle}">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top" Margin="0,0,0,12">
-                        <TextBlock Text="Nhập nhanh điện nước - tất cả phòng đang thuê" Style="{StaticResource SectionTitleStyle}" />
+                        <TextBlock Text="{loc:Tr S261}" Style="{StaticResource SectionTitleStyle}" />
                         <TextBlock Foreground="#757575" FontSize="12" Margin="0,2,0,0">
-                            <Run Text="Kỳ:" /><Run Text="{Binding FilterMonth, StringFormat=' {0:D2}/'}" /><Run Text="{Binding FilterYear}" />
-                            <Run Text="  •  Chỉ số cũ đã điền sẵn từ kỳ trước, chỉ cần nhập chỉ số mới." />
+                            <Run Text="{loc:Tr S262}" /><Run Text="{Binding FilterMonth, StringFormat=' {0:D2}/'}" /><Run Text="{Binding FilterYear}" />
+                            <Run Text="{loc:Tr S263}" />
                         </TextBlock>
                     </StackPanel>
 
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
                         <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource ErrorBrush}" VerticalAlignment="Center" Margin="0,0,16,0"
                                   Visibility="{Binding ErrorMessage, Converter={StaticResource NullToVisibilityConverter}}" />
-                        <Button Content="Hủy" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding CloseBatchDialogCommand}" Padding="24,10" />
-                        <Button Content="Lưu tất cả" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding SaveBatchCommand}" Padding="24,10" />
+                        <Button Content="{loc:Tr S015}" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding CloseBatchDialogCommand}" Padding="24,10" />
+                        <Button Content="{loc:Tr S264}" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding SaveBatchCommand}" Padding="24,10" />
                     </StackPanel>
 
                     <DataGrid Style="{StaticResource ModernDataGridStyle}" ItemsSource="{Binding BatchRows}"
                               AutoGenerateColumns="False" CanUserAddRows="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Phòng" Binding="{Binding RoomCode}" IsReadOnly="True" Width="90" />
-                            <DataGridTextColumn Header="Điện cũ" Binding="{Binding ElectricOld}" IsReadOnly="True" Width="90" />
-                            <DataGridTextColumn Header="Điện mới" Binding="{Binding ElectricNew, UpdateSourceTrigger=PropertyChanged}" Width="100" />
+                            <DataGridTextColumn Header="{loc:Tr S038}" Binding="{Binding RoomCode}" IsReadOnly="True" Width="90" />
+                            <DataGridTextColumn Header="{loc:Tr S245}" Binding="{Binding ElectricOld}" IsReadOnly="True" Width="90" />
+                            <DataGridTextColumn Header="{loc:Tr S246}" Binding="{Binding ElectricNew, UpdateSourceTrigger=PropertyChanged}" Width="100" />
                             <DataGridTextColumn Header="kWh" Binding="{Binding ElectricUsage, StringFormat={}{0:N0}}" IsReadOnly="True" Width="70" />
-                            <DataGridTextColumn Header="Nước cũ" Binding="{Binding WaterOld}" IsReadOnly="True" Width="90" />
-                            <DataGridTextColumn Header="Nước mới" Binding="{Binding WaterNew, UpdateSourceTrigger=PropertyChanged}" Width="100" />
+                            <DataGridTextColumn Header="{loc:Tr S249}" Binding="{Binding WaterOld}" IsReadOnly="True" Width="90" />
+                            <DataGridTextColumn Header="{loc:Tr S250}" Binding="{Binding WaterNew, UpdateSourceTrigger=PropertyChanged}" Width="100" />
                             <DataGridTextColumn Header="m³" Binding="{Binding WaterUsage, StringFormat={}{0:N0}}" IsReadOnly="True" Width="60" />
-                            <DataGridTextColumn Header="Thành tiền" Binding="{Binding RowTotal, StringFormat={}{0:N0} ₫}" IsReadOnly="True" Width="*" />
+                            <DataGridTextColumn Header="{loc:Tr S265}" Binding="{Binding RowTotal, StringFormat={}{0:N0} ₫}" IsReadOnly="True" Width="*" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </DockPanel>

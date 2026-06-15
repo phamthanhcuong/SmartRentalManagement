@@ -24,6 +24,15 @@ public partial class SettingsViewModel : BaseViewModel
     [ObservableProperty] private decimal _defaultWaterPrice;
     [ObservableProperty] private decimal _lateFeePercent;
 
+    // Ngôn ngữ
+    public IReadOnlyList<Localization.LanguageOption> Languages => Localization.Localizer.Instance.Languages;
+    [ObservableProperty] private string _selectedLanguageCode = Localization.Localizer.Instance.CurrentLanguage;
+
+    partial void OnSelectedLanguageCodeChanged(string value)
+    {
+        if (!string.IsNullOrEmpty(value)) Localization.Localizer.Instance.SetLanguage(value);
+    }
+
     [ObservableProperty] private string _oldPassword = string.Empty;
     [ObservableProperty] private string _newPassword = string.Empty;
     [ObservableProperty] private string _confirmPassword = string.Empty;

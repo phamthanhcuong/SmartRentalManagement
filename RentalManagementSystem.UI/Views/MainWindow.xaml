@@ -5,7 +5,8 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:views="clr-namespace:RentalManagementSystem.UI.Views"
         xmlns:vm="clr-namespace:RentalManagementSystem.UI.ViewModels"
-        Title="Quản Lý Nhà Trọ"
+        xmlns:loc="clr-namespace:RentalManagementSystem.UI.Localization"
+        Title="{loc:Tr App.Title}"
         Width="1400" Height="860"
         MinWidth="1200" MinHeight="700"
         WindowStartupLocation="CenterScreen"
@@ -83,7 +84,7 @@
                             <StackPanel>
                                 <TextBlock Text="NHÀ TRỌ" FontSize="16" FontWeight="Bold"
                                           Foreground="White" />
-                                <TextBlock Text="QUẢN LÝ" FontSize="10" Foreground="#E8B9C6" />
+                                <TextBlock Text="{loc:Tr App.Subtitle}" FontSize="10" Foreground="#E8B9C6" />
                             </StackPanel>
                         </StackPanel>
                     </Border>
@@ -114,7 +115,7 @@
                                 <iconPacks:PackIconMaterial Kind="Logout" Width="18" Height="18"
                                                            VerticalAlignment="Center"
                                                            Foreground="#EF9A9A" />
-                                <TextBlock Text="Đăng xuất" VerticalAlignment="Center"
+                                <TextBlock Text="{loc:Tr Menu.Logout}" VerticalAlignment="Center"
                                           Foreground="#EF9A9A" />
                             </StackPanel>
                         </Button>
@@ -123,14 +124,14 @@
                     <!-- Navigation Menu -->
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <StackPanel Margin="0,8">
-                            <TextBlock Text="TỔNG QUAN" Foreground="#546E7A" FontSize="10"
+                            <TextBlock Text="{loc:Tr Menu.Group.Overview}" Foreground="#546E7A" FontSize="10"
                                       FontWeight="SemiBold" Margin="20,8,0,4" />
                             <Button Style="{StaticResource SidebarButtonStyle}"
                                    Command="{Binding NavigateToCommand}" CommandParameter="TrangChu"
                                    Background="{Binding ActiveMenu, Converter={StaticResource MenuHighlightConverter}, ConverterParameter=TrangChu}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="Home" Width="18" Height="18" VerticalAlignment="Center" />
-                                    <TextBlock Text="Trang Chủ" VerticalAlignment="Center" Margin="12,0,0,0" />
+                                    <TextBlock Text="{loc:Tr Menu.Home}" VerticalAlignment="Center" Margin="12,0,0,0" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource SidebarButtonStyle}"
@@ -142,14 +143,14 @@
                                 </StackPanel>
                             </Button>
 
-                            <TextBlock Text="NGHIỆP VỤ" Foreground="#546E7A" FontSize="10"
+                            <TextBlock Text="{loc:Tr Menu.Group.Operations}" Foreground="#546E7A" FontSize="10"
                                       FontWeight="SemiBold" Margin="20,12,0,4" />
                             <Button Style="{StaticResource SidebarButtonStyle}"
                                    Command="{Binding NavigateToCommand}" CommandParameter="KhuTro"
                                    Background="{Binding ActiveMenu, Converter={StaticResource MenuHighlightConverter}, ConverterParameter=KhuTro}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="Domain" Width="18" Height="18" VerticalAlignment="Center" />
-                                    <TextBlock Text="Khu Trọ" VerticalAlignment="Center" Margin="12,0,0,0" />
+                                    <TextBlock Text="{loc:Tr Menu.Area}" VerticalAlignment="Center" Margin="12,0,0,0" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource SidebarButtonStyle}"
@@ -157,7 +158,7 @@
                                    Background="{Binding ActiveMenu, Converter={StaticResource MenuHighlightConverter}, ConverterParameter=Phong}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="DoorOpen" Width="18" Height="18" VerticalAlignment="Center" />
-                                    <TextBlock Text="Phòng" VerticalAlignment="Center" Margin="12,0,0,0" />
+                                    <TextBlock Text="{loc:Tr Menu.Room}" VerticalAlignment="Center" Margin="12,0,0,0" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource SidebarButtonStyle}"
@@ -165,7 +166,7 @@
                                    Background="{Binding ActiveMenu, Converter={StaticResource MenuHighlightConverter}, ConverterParameter=KhachThue}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="AccountGroup" Width="18" Height="18" VerticalAlignment="Center" />
-                                    <TextBlock Text="Khách Thuê" VerticalAlignment="Center" Margin="12,0,0,0" />
+                                    <TextBlock Text="{loc:Tr Menu.Tenant}" VerticalAlignment="Center" Margin="12,0,0,0" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource SidebarButtonStyle}"
@@ -173,7 +174,7 @@
                                    Background="{Binding ActiveMenu, Converter={StaticResource MenuHighlightConverter}, ConverterParameter=HopDong}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="FileDocument" Width="18" Height="18" VerticalAlignment="Center" />
-                                    <TextBlock Text="Hợp Đồng" VerticalAlignment="Center" Margin="12,0,0,0" />
+                                    <TextBlock Text="{loc:Tr Menu.Contract}" VerticalAlignment="Center" Margin="12,0,0,0" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource SidebarButtonStyle}"
@@ -181,7 +182,7 @@
                                    Background="{Binding ActiveMenu, Converter={StaticResource MenuHighlightConverter}, ConverterParameter=TraCuuXe}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="Motorbike" Width="18" Height="18" VerticalAlignment="Center" />
-                                    <TextBlock Text="Tra Cứu Xe" VerticalAlignment="Center" Margin="12,0,0,0" />
+                                    <TextBlock Text="{loc:Tr Menu.VehicleLookup}" VerticalAlignment="Center" Margin="12,0,0,0" />
                                 </StackPanel>
                             </Button>
 
@@ -190,7 +191,7 @@
                                    Background="{Binding ActiveMenu, Converter={StaticResource MenuHighlightConverter}, ConverterParameter=DienNuoc}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="LightningBolt" Width="18" Height="18" VerticalAlignment="Center" />
-                                    <TextBlock Text="Điện Nước" VerticalAlignment="Center" Margin="12,0,0,0" />
+                                    <TextBlock Text="{loc:Tr Menu.Utility}" VerticalAlignment="Center" Margin="12,0,0,0" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource SidebarButtonStyle}"
@@ -198,7 +199,7 @@
                                    Background="{Binding ActiveMenu, Converter={StaticResource MenuHighlightConverter}, ConverterParameter=DichVu}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="Cog" Width="18" Height="18" VerticalAlignment="Center" />
-                                    <TextBlock Text="Dịch Vụ" VerticalAlignment="Center" Margin="12,0,0,0" />
+                                    <TextBlock Text="{loc:Tr Menu.Service}" VerticalAlignment="Center" Margin="12,0,0,0" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource SidebarButtonStyle}"
@@ -206,7 +207,7 @@
                                    Background="{Binding ActiveMenu, Converter={StaticResource MenuHighlightConverter}, ConverterParameter=HoaDon}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="Receipt" Width="18" Height="18" VerticalAlignment="Center" />
-                                    <TextBlock Text="Hóa Đơn" VerticalAlignment="Center" Margin="12,0,0,0" />
+                                    <TextBlock Text="{loc:Tr Menu.Invoice}" VerticalAlignment="Center" Margin="12,0,0,0" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource SidebarButtonStyle}"
@@ -214,18 +215,18 @@
                                    Background="{Binding ActiveMenu, Converter={StaticResource MenuHighlightConverter}, ConverterParameter=ThuChi}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="CurrencyUsd" Width="18" Height="18" VerticalAlignment="Center" />
-                                    <TextBlock Text="Thu Chi" VerticalAlignment="Center" Margin="12,0,0,0" />
+                                    <TextBlock Text="{loc:Tr Menu.IncomeExpense}" VerticalAlignment="Center" Margin="12,0,0,0" />
                                 </StackPanel>
                             </Button>
 
-                            <TextBlock Text="HỆ THỐNG" Foreground="#546E7A" FontSize="10"
+                            <TextBlock Text="{loc:Tr Menu.Group.System}" Foreground="#546E7A" FontSize="10"
                                       FontWeight="SemiBold" Margin="20,12,0,4" />
                             <Button Style="{StaticResource SidebarButtonStyle}"
                                    Command="{Binding NavigateToCommand}" CommandParameter="TaiSan"
                                    Background="{Binding ActiveMenu, Converter={StaticResource MenuHighlightConverter}, ConverterParameter=TaiSan}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="Sofa" Width="18" Height="18" VerticalAlignment="Center" />
-                                    <TextBlock Text="Tài Sản" VerticalAlignment="Center" Margin="12,0,0,0" />
+                                    <TextBlock Text="{loc:Tr Menu.Asset}" VerticalAlignment="Center" Margin="12,0,0,0" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource SidebarButtonStyle}"
@@ -233,7 +234,7 @@
                                    Background="{Binding ActiveMenu, Converter={StaticResource MenuHighlightConverter}, ConverterParameter=BaoCao}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="ChartBar" Width="18" Height="18" VerticalAlignment="Center" />
-                                    <TextBlock Text="Báo Cáo" VerticalAlignment="Center" Margin="12,0,0,0" />
+                                    <TextBlock Text="{loc:Tr Menu.Report}" VerticalAlignment="Center" Margin="12,0,0,0" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource SidebarButtonStyle}"
@@ -241,7 +242,7 @@
                                    Background="{Binding ActiveMenu, Converter={StaticResource MenuHighlightConverter}, ConverterParameter=NhatKy}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="History" Width="18" Height="18" VerticalAlignment="Center" />
-                                    <TextBlock Text="Nhật Ký" VerticalAlignment="Center" Margin="12,0,0,0" />
+                                    <TextBlock Text="{loc:Tr Menu.Audit}" VerticalAlignment="Center" Margin="12,0,0,0" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource SidebarButtonStyle}"
@@ -249,7 +250,7 @@
                                    Background="{Binding ActiveMenu, Converter={StaticResource MenuHighlightConverter}, ConverterParameter=CaiDat}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="Cog" Width="18" Height="18" VerticalAlignment="Center" />
-                                    <TextBlock Text="Cài Đặt" VerticalAlignment="Center" Margin="12,0,0,0" />
+                                    <TextBlock Text="{loc:Tr Menu.Settings}" VerticalAlignment="Center" Margin="12,0,0,0" />
                                 </StackPanel>
                             </Button>
                         </StackPanel>
@@ -274,7 +275,7 @@
                                     Style="{StaticResource SecondaryButtonStyle}" Padding="12,7" Margin="0,0,10,0" ToolTip="Về Trang Chủ">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="Home" Width="15" Height="15" VerticalAlignment="Center" />
-                                    <TextBlock Text="Trang Chủ" VerticalAlignment="Center" Margin="6,0,0,0" />
+                                    <TextBlock Text="{loc:Tr Menu.Home}" VerticalAlignment="Center" Margin="6,0,0,0" />
                                 </StackPanel>
                             </Button>
                             <TextBlock Text="{Binding CurrentPageTitle}" VerticalAlignment="Center"

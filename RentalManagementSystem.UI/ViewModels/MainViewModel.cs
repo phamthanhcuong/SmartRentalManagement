@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using RentalManagementSystem.Domain.Entities;
+using RentalManagementSystem.UI.Localization;
 
 namespace RentalManagementSystem.UI.ViewModels;
 
@@ -26,10 +27,10 @@ public partial class MainViewModel : BaseViewModel
     private bool _isElderMode;
 
     [ObservableProperty]
-    private string _elderModeLabel = "Chế độ Người Cao Tuổi";
+    private string _elderModeLabel = string.Empty;
 
-    partial void OnIsElderModeChanged(bool value)
-        => ElderModeLabel = value ? "Chế độ Thường" : "Chế độ Người Cao Tuổi";
+    partial void OnIsElderModeChanged(bool value) => UpdateElderLabel();
+    private void UpdateElderLabel() => ElderModeLabel = Localizer.Instance[IsElderMode ? "Top.ElderOff" : "Top.ElderOn"];
 
     [RelayCommand]
     private void ToggleElderMode() => IsElderMode = !IsElderMode;
@@ -37,11 +38,29 @@ public partial class MainViewModel : BaseViewModel
     /// <summary>Cho phép các ViewModel con yêu cầu điều hướng tới một menu (vd: Dashboard → Điện Nước).</summary>
     public static Action<string>? NavigateRequested { get; private set; }
 
+    // menu -> khóa dịch tiêu đề
+    private static string TitleKey(string menu) => menu switch
+    {
+        "TrangChu" => "Menu.Home", "Dashboard" => "Menu.Dashboard", "KhuTro" => "Menu.Area",
+        "Phong" => "Menu.Room", "KhachThue" => "Menu.Tenant", "TraCuuXe" => "Menu.VehicleLookup",
+        "HopDong" => "Menu.Contract", "DienNuoc" => "Menu.Utility", "DichVu" => "Menu.Service",
+        "HoaDon" => "Menu.Invoice", "ThuChi" => "Menu.IncomeExpense", "TaiSan" => "Menu.Asset",
+        "BaoCao" => "Menu.Report", "NhatKy" => "Menu.Audit", "CaiDat" => "Menu.Settings",
+        _ => "Menu.Home"
+    };
+
     public MainViewModel(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
         CurrentUser = LoginViewModel.CurrentUser;
         NavigateRequested = menu => NavigateTo(menu);
+        UpdateElderLabel();
+        // Cập nhật lại các chuỗi sinh từ C# khi đổi ngôn ngữ
+        Localizer.Instance.LanguageChanged += () =>
+        {
+            CurrentPageTitle = Localizer.Instance[TitleKey(ActiveMenu)];
+            UpdateElderLabel();
+        };
         NavigateTo("TrangChu");
     }
 
@@ -49,25 +68,7 @@ public partial class MainViewModel : BaseViewModel
     private void NavigateTo(string menu)
     {
         ActiveMenu = menu;
-        CurrentPageTitle = menu switch
-        {
-            "TrangChu" => "Trang Chủ",
-            "Dashboard" => "Dashboard",
-            "KhuTro" => "Khu Trọ",
-            "Phong" => "Quản Lý Phòng",
-            "KhachThue" => "Khách Thuê",
-            "TraCuuXe" => "Tra Cứu Xe",
-            "HopDong" => "Hợp Đồng",
-            "DienNuoc" => "Điện Nước",
-            "DichVu" => "Dịch Vụ",
-            "HoaDon" => "Hóa Đơn",
-            "ThuChi" => "Thu Chi",
-            "TaiSan" => "Tài Sản",
-            "BaoCao" => "Báo Cáo",
-            "NhatKy" => "Nhật Ký Thao Tác",
-            "CaiDat" => "Cài Đặt",
-            _ => menu
-        };
+        CurrentPageTitle = Localizer.Instance[TitleKey(menu)];
 
         CurrentViewModel = menu switch
         {

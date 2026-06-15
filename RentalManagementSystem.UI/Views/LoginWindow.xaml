@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:loc="clr-namespace:RentalManagementSystem.UI.Localization"
         Title="Đăng Nhập - Quản Lý Nhà Trọ"
         Width="900" Height="600"
         WindowStartupLocation="CenterScreen"
@@ -42,9 +43,9 @@
                                                    VerticalAlignment="Center" />
                     </Border>
 
-                    <TextBlock Text="QUẢN LÝ NHÀ TRỌ" FontSize="28" FontWeight="Bold"
+                    <TextBlock Text="{loc:Tr Login.BrandTitle}" FontSize="28" FontWeight="Bold"
                               Foreground="White" HorizontalAlignment="Center" />
-                    <TextBlock Text="Hệ thống quản lý chuyên nghiệp" FontSize="14"
+                    <TextBlock Text="{loc:Tr Login.BrandSubtitle}" FontSize="14"
                               Foreground="#E8B9C6" HorizontalAlignment="Center"
                               Margin="0,8,0,40" />
 
@@ -82,9 +83,9 @@
                     </Button>
 
                     <StackPanel VerticalAlignment="Center" Margin="48,0">
-                        <TextBlock Text="Xin Chào!" FontSize="30" FontWeight="Bold"
+                        <TextBlock Text="{loc:Tr Login.Title}" FontSize="30" FontWeight="Bold"
                                   Foreground="#3A0E1E" Margin="0,0,0,4" />
-                        <TextBlock Text="Đăng nhập để tiếp tục" FontSize="14"
+                        <TextBlock Text="{loc:Tr Login.Subtitle}" FontSize="14"
                                   Foreground="#757575" Margin="0,0,0,40" />
 
                         <!-- Error Message -->
@@ -100,7 +101,7 @@
                         </Border>
 
                         <!-- Username -->
-                        <TextBlock Text="Tên đăng nhập" Style="{StaticResource FormLabelStyle}" />
+                        <TextBlock Text="{loc:Tr Login.Username}" Style="{StaticResource FormLabelStyle}" />
                         <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="8"
                                Margin="0,0,0,20" Height="48">
                             <Grid>
@@ -118,12 +119,12 @@
                                         BorderThickness="0" Padding="12,0"
                                         VerticalContentAlignment="Center"
                                         FontSize="14" Background="Transparent"
-                                        materialDesign:HintAssist.Hint="Nhập tên đăng nhập" />
+                                        materialDesign:HintAssist.Hint="{loc:Tr Login.UsernameHint}" />
                             </Grid>
                         </Border>
 
                         <!-- Password -->
-                        <TextBlock Text="Mật khẩu" Style="{StaticResource FormLabelStyle}" />
+                        <TextBlock Text="{loc:Tr Login.Password}" Style="{StaticResource FormLabelStyle}" />
                         <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="8"
                                Margin="0,0,0,12" Height="48">
                             <Grid>
@@ -180,7 +181,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="Login" Width="20" Height="20"
                                                                VerticalAlignment="Center" />
-                                    <TextBlock Text="ĐĂNG NHẬP" VerticalAlignment="Center" />
+                                    <TextBlock Text="{loc:Tr Login.Button}" VerticalAlignment="Center" />
                                 </StackPanel>
                             </Button.Content>
                         </Button>
@@ -195,7 +196,7 @@
                                     <RotateTransform />
                                 </materialDesign:PackIcon.RenderTransform>
                             </materialDesign:PackIcon>
-                            <TextBlock Text="Đang đăng nhập..." Foreground="{StaticResource TextSecondaryBrush}"
+                            <TextBlock Text="{loc:Tr Login.Loading}" Foreground="{StaticResource TextSecondaryBrush}"
                                       Margin="8,0,0,0" VerticalAlignment="Center" />
                         </StackPanel>
 

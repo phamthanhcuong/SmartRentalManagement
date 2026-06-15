@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="RentalManagementSystem.UI.Views.ReportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Báo Cáo" Style="{StaticResource PageTitleStyle}" Margin="0,0,0,24" />
+
+            <!-- Month/Year Filter -->
+            <Border Grid.Row="1" Style="{StaticResource CardStyle}" Margin="0,0,0,24">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <iconPacks:PackIconMaterial Kind="Calendar" Width="20" Height="20" Foreground="{StaticResource PrimaryBrush}" VerticalAlignment="Center" />
+                    <TextBlock Text="Kỳ báo cáo:" VerticalAlignment="Center" FontWeight="Medium" />
+                    <TextBlock Text="Tháng" VerticalAlignment="Center" Foreground="{StaticResource TextSecondaryBrush}" />
+                    <TextBox Text="{Binding ReportMonth}" Width="60" Height="36" Padding="8,0" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
+                    <TextBlock Text="Năm" VerticalAlignment="Center" Foreground="{StaticResource TextSecondaryBrush}" />
+                    <TextBox Text="{Binding ReportYear}" Width="80" Height="36" Padding="8,0" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
+                </StackPanel>
+            </Border>
+
+            <!-- Report Cards -->
+            <UniformGrid Grid.Row="2" Rows="1" Columns="3" Height="200">
+                <!-- Revenue Report -->
+                <Border Style="{StaticResource CardStyle}" Margin="0,0,12,0" Cursor="Hand">
+                    <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ExportRevenueCommand}"
+                           Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Border Width="64" Height="64" CornerRadius="32" Background="#F7E9EE" HorizontalAlignment="Center">
+                                <iconPacks:PackIconMaterial Kind="ChartBar" Width="32" Height="32" Foreground="{StaticResource PrimaryBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <StackPanel>
+                                <TextBlock Text="Báo Cáo Doanh Thu" FontSize="15" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
+                                <TextBlock Text="Xuất theo tháng/năm" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Center" Margin="0,4,0,0" />
+                            </StackPanel>
+                            <Border Background="{StaticResource PrimaryBrush}" CornerRadius="16" Padding="16,6" HorizontalAlignment="Center">
+                                <TextBlock Text="📥 Xuất Excel" Foreground="White" FontSize="12" />
+                            </Border>
+                        </StackPanel>
+                    </Button>
+                </Border>
+
+                <!-- Debt Report -->
+                <Border Style="{StaticResource CardStyle}" Margin="0,0,12,0" Cursor="Hand">
+                    <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ExportDebtCommand}"
+                           Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Border Width="64" Height="64" CornerRadius="32" Background="#FFEBEE" HorizontalAlignment="Center">
+                                <iconPacks:PackIconMaterial Kind="CurrencyUsd" Width="32" Height="32" Foreground="{StaticResource ErrorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <StackPanel>
+                                <TextBlock Text="Báo Cáo Công Nợ" FontSize="15" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
+                                <TextBlock Text="Danh sách chưa thanh toán" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Center" Margin="0,4,0,0" />
+                            </StackPanel>
+                            <Border Background="{StaticResource ErrorBrush}" CornerRadius="16" Padding="16,6" HorizontalAlignment="Center">
+                                <TextBlock Text="📥 Xuất Excel" Foreground="White" FontSize="12" />
+                            </Border>
+                        </StackPanel>
+                    </Button>
+                </Border>
+
+                <!-- Utility Report -->
+                <Border Style="{StaticResource CardStyle}" Margin="0" Cursor="Hand">
+                    <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ExportUtilityCommand}"
+                           Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Border Width="64" Height="64" CornerRadius="32" Background="#E8F5E9" HorizontalAlignment="Center">
+                                <iconPacks:PackIconMaterial Kind="LightningBolt" Width="32" Height="32" Foreground="{StaticResource SuccessBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <StackPanel>
+                                <TextBlock Text="Báo Cáo Điện Nước" FontSize="15" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" />
+                                <TextBlock Text="Theo tháng/năm" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Center" Margin="0,4,0,0" />
+                            </StackPanel>
+                            <Border Background="{StaticResource SuccessBrush}" CornerRadius="16" Padding="16,6" HorizontalAlignment="Center">
+                                <TextBlock Text="📥 Xuất Excel" Foreground="White" FontSize="12" />
+                            </Border>
+                        </StackPanel>
+                    </Button>
+                </Border>
+            </UniformGrid>
+
+            <!-- Status messages -->
+            <Border Grid.Row="2" VerticalAlignment="Bottom" Margin="0,220,0,0">
+                <StackPanel>
+                    <TextBlock Text="{Binding SuccessMessage}" Foreground="{StaticResource SuccessBrush}"
+                              Visibility="{Binding SuccessMessage, Converter={StaticResource NullToVisibilityConverter}}"
+                              Margin="0,16,0,0" FontSize="14" />
+                    <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource ErrorBrush}"
+                              Visibility="{Binding ErrorMessage, Converter={StaticResource NullToVisibilityConverter}}"
+                              Margin="0,16,0,0" FontSize="14" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</UserControl>
+

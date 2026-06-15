@@ -1,0 +1,320 @@
+﻿<UserControl x:Class="RentalManagementSystem.UI.Views.ContractView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0,0,0,16">
+            <TextBlock Text="Quản Lý Hợp Đồng" Style="{StaticResource PageTitleStyle}" VerticalAlignment="Center" />
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Command="{Binding OpenAddDialogCommand}" Style="{StaticResource PrimaryButtonStyle}" Padding="13,9" FontSize="13">
+                    <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="Plus" Width="15" Height="15" VerticalAlignment="Center" /><TextBlock Text="Tạo HĐ" VerticalAlignment="Center" Margin="6,0,0,0" /></StackPanel>
+                </Button>
+                <Button Command="{Binding OpenEditDialogCommand}" CommandParameter="{Binding SelectedContract}" IsEnabled="{Binding SelectedContract, Converter={StaticResource NotNullToBoolConverter}}" Style="{StaticResource SecondaryButtonStyle}" Padding="13,9" FontSize="13" Margin="6,0,0,0" ToolTip="Sửa hợp đồng">
+                    <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="Pencil" Width="15" Height="15" VerticalAlignment="Center" /><TextBlock Text="Sửa" VerticalAlignment="Center" Margin="6,0,0,0" /></StackPanel>
+                </Button>
+                <Button Command="{Binding OpenRenewDialogCommand}" CommandParameter="{Binding SelectedContract}" IsEnabled="{Binding SelectedContract, Converter={StaticResource NotNullToBoolConverter}}" Style="{StaticResource SuccessButtonStyle}" Padding="13,9" FontSize="13" Margin="6,0,0,0" ToolTip="Gia hạn">
+                    <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="Refresh" Width="15" Height="15" VerticalAlignment="Center" /><TextBlock Text="Gia hạn" VerticalAlignment="Center" Margin="6,0,0,0" /></StackPanel>
+                </Button>
+                <Button Command="{Binding OpenSubscriptionDialogCommand}" CommandParameter="{Binding SelectedContract}" IsEnabled="{Binding SelectedContract, Converter={StaticResource NotNullToBoolConverter}}" Style="{StaticResource SecondaryButtonStyle}" Padding="13,9" FontSize="13" Margin="6,0,0,0" ToolTip="Dịch vụ sử dụng">
+                    <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="Cog" Width="15" Height="15" VerticalAlignment="Center" /><TextBlock Text="Dịch vụ" VerticalAlignment="Center" Margin="6,0,0,0" /></StackPanel>
+                </Button>
+                <Button Command="{Binding OpenTransferDialogCommand}" CommandParameter="{Binding SelectedContract}" IsEnabled="{Binding SelectedContract, Converter={StaticResource NotNullToBoolConverter}}" Style="{StaticResource SecondaryButtonStyle}" Padding="13,9" FontSize="13" Margin="6,0,0,0" ToolTip="Nhường phòng cho khách khác">
+                    <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="AccountSwitch" Width="15" Height="15" VerticalAlignment="Center" /><TextBlock Text="Nhường" VerticalAlignment="Center" Margin="6,0,0,0" /></StackPanel>
+                </Button>
+                <Button Command="{Binding OpenCheckoutDialogCommand}" CommandParameter="{Binding SelectedContract}" IsEnabled="{Binding SelectedContract, Converter={StaticResource NotNullToBoolConverter}}" Style="{StaticResource DangerButtonStyle}" Padding="13,9" FontSize="13" Margin="6,0,0,0" ToolTip="Trả phòng / Thanh lý">
+                    <StackPanel Orientation="Horizontal"><iconPacks:PackIconMaterial Kind="LogoutVariant" Width="15" Height="15" VerticalAlignment="Center" /><TextBlock Text="Trả phòng" VerticalAlignment="Center" Margin="6,0,0,0" /></StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <Border Grid.Row="1" Style="{StaticResource CardStyle}">
+            <DataGrid Style="{StaticResource ModernDataGridStyle}" ItemsSource="{Binding Contracts}" SelectedItem="{Binding SelectedContract}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Số HĐ" Binding="{Binding ContractNo}" Width="120" />
+                    <DataGridTextColumn Header="Khách Thuê" Binding="{Binding Tenant.FullName}" Width="*" />
+                    <DataGridTextColumn Header="Phòng" Binding="{Binding Room.RoomCode}" Width="90" />
+                    <DataGridTextColumn Header="Ngày bắt đầu" Binding="{Binding StartDate, StringFormat=dd/MM/yyyy}" Width="120" />
+                    <DataGridTextColumn Header="Ngày kết thúc" Binding="{Binding EndDate, StringFormat=dd/MM/yyyy}" Width="120" />
+                    <DataGridTextColumn Header="Tiền thuê" Binding="{Binding MonthlyRent, StringFormat={}{0:N0} ₫}" Width="130" />
+                    <DataGridTextColumn Header="Đặt cọc" Binding="{Binding DepositAmount, StringFormat={}{0:N0} ₫}" Width="130" />
+                    <DataGridTemplateColumn Header="Trạng thái" Width="110">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="12" Padding="8,3" HorizontalAlignment="Center">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Status}" Value="Active">
+                                                    <Setter Property="Background" Value="#E8F5E9" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="Expired">
+                                                    <Setter Property="Background" Value="#FFF8E1" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="Terminated">
+                                                    <Setter Property="Background" Value="#FFEBEE" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <TextBlock FontSize="11" FontWeight="Medium">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Status}" Value="Active">
+                                                        <Setter Property="Text" Value="Hiệu lực" />
+                                                        <Setter Property="Foreground" Value="#2E7D32" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Status}" Value="Expired">
+                                                        <Setter Property="Text" Value="Hết hạn" />
+                                                        <Setter Property="Foreground" Value="#E65100" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Status}" Value="Terminated">
+                                                        <Setter Property="Text" Value="Thanh lý" />
+                                                        <Setter Property="Foreground" Value="#C62828" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <!-- Add/Edit Dialog -->
+        <Grid Grid.RowSpan="2" Visibility="{Binding IsDialogOpen, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Border Background="#80000000" />
+            <Border MaxWidth="560" MaxHeight="680" VerticalAlignment="Center" HorizontalAlignment="Center"
+                   Style="{StaticResource CardStyle}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="Thông tin hợp đồng" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,20" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,12">
+                                <TextBlock Text="Số hợp đồng" Style="{StaticResource FormLabelStyle}" />
+                                <TextBox Text="{Binding FormContractNo}" Height="40" Padding="12,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" IsReadOnly="True" Background="#F5F5F5" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,12">
+                                <TextBlock Text="Khách thuê *" Style="{StaticResource FormLabelStyle}" />
+                                <ComboBox ItemsSource="{Binding Tenants}" SelectedValuePath="Id" SelectedValue="{Binding FormTenantId}" DisplayMemberPath="FullName" Height="40" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,12">
+                                <TextBlock Text="Phòng *" Style="{StaticResource FormLabelStyle}" />
+                                <ComboBox ItemsSource="{Binding Rooms}" SelectedValuePath="Id" SelectedValue="{Binding FormRoomId}" DisplayMemberPath="RoomCode" Height="40" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,0,12">
+                                <TextBlock Text="Ngày bắt đầu" Style="{StaticResource FormLabelStyle}" />
+                                <DatePicker SelectedDate="{Binding FormStartDate}" Height="40" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" Grid.Column="2" Margin="0,0,0,12">
+                                <TextBlock Text="Ngày kết thúc" Style="{StaticResource FormLabelStyle}" />
+                                <DatePicker SelectedDate="{Binding FormEndDate}" Height="40" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="4" Grid.Column="0" Margin="0,0,0,12">
+                                <TextBlock Text="Tiền thuê/tháng (₫)" Style="{StaticResource FormLabelStyle}" />
+                                <TextBox Text="{Binding FormMonthlyRent, UpdateSourceTrigger=PropertyChanged}" Height="40" Padding="12,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="4" Grid.Column="2" Margin="0,0,0,12">
+                                <TextBlock Text="Tiền đặt cọc (₫)" Style="{StaticResource FormLabelStyle}" />
+                                <TextBox Text="{Binding FormDepositAmount, UpdateSourceTrigger=PropertyChanged}" Height="40" Padding="12,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="5" Grid.Column="0" Margin="0,0,0,12">
+                                <TextBlock Text="Ngày thu tiền hàng tháng" Style="{StaticResource FormLabelStyle}" />
+                                <TextBox Text="{Binding FormPaymentDueDay}" Height="40" Padding="12,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="5" Grid.Column="2" Margin="0,0,0,12">
+                                <TextBlock Text="Số người ở" Style="{StaticResource FormLabelStyle}" />
+                                <TextBox Text="{Binding FormOccupantCount}" Height="40" Padding="12,0" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
+                            </StackPanel>
+                        </Grid>
+
+                        <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource ErrorBrush}"
+                                  Visibility="{Binding ErrorMessage, Converter={StaticResource NullToVisibilityConverter}}" Margin="0,8,0,0" />
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+                            <Button Content="Hủy" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding CloseDialogCommand}" Padding="24,10" />
+                            <Button Content="Lưu" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding SaveCommand}" Padding="24,10" />
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <!-- Renew Dialog -->
+        <Grid Grid.RowSpan="2" Visibility="{Binding IsRenewDialogOpen, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Border Background="#80000000" />
+            <Border MaxWidth="380" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="Gia hạn hợp đồng" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,20" />
+                    <TextBlock Text="Ngày kết thúc mới" Style="{StaticResource FormLabelStyle}" />
+                    <DatePicker SelectedDate="{Binding RenewEndDate}" Height="40" Margin="0,0,0,20" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Hủy" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding CloseDialogCommand}" Padding="24,10" />
+                        <Button Content="Gia hạn" Style="{StaticResource SuccessButtonStyle}" Command="{Binding RenewCommand}" Padding="24,10" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Subscription (Dịch vụ theo hợp đồng) Dialog -->
+        <Grid Grid.RowSpan="2" Visibility="{Binding IsSubscriptionDialogOpen, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Border Background="#80000000" />
+            <Border MaxWidth="640" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="Dịch vụ định kỳ của hợp đồng" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,4" />
+                    <TextBlock Text="{Binding SubscriptionContract.ContractNo, StringFormat=Hợp đồng: {0}}" Foreground="#757575" FontSize="12" Margin="0,0,0,16" />
+
+                    <!-- Form thêm dịch vụ -->
+                    <Border Background="#F5F7FA" CornerRadius="8" Padding="14" Margin="0,0,0,14">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" /><ColumnDefinition Width="8" />
+                                <ColumnDefinition Width="*" /><ColumnDefinition Width="8" />
+                                <ColumnDefinition Width="*" /><ColumnDefinition Width="8" />
+                                <ColumnDefinition Width="Auto" /><ColumnDefinition Width="8" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" /><RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Dịch vụ" Style="{StaticResource FormLabelStyle}" />
+                            <ComboBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding AvailableServices}" SelectedValuePath="Id"
+                                      SelectedValue="{Binding SubServiceId}" DisplayMemberPath="ServiceName" Height="38" />
+
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Số lượng" Style="{StaticResource FormLabelStyle}" />
+                            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding SubQuantity}" Height="38" Padding="8,0" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
+
+                            <TextBlock Grid.Row="0" Grid.Column="4" Text="Đơn giá (₫)" Style="{StaticResource FormLabelStyle}" />
+                            <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding SubUnitPrice}" Height="38" Padding="8,0" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" />
+
+                            <CheckBox Grid.Row="1" Grid.Column="6" Content="Theo người" IsChecked="{Binding SubIsPerPerson}" VerticalAlignment="Center" />
+
+                            <Button Grid.Row="1" Grid.Column="8" Content="Thêm" Style="{StaticResource PrimaryButtonStyle}"
+                                    Command="{Binding AddSubscriptionCommand}" Padding="18,8" VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+
+                    <!-- Danh sách dịch vụ đã đăng ký -->
+                    <DataGrid Style="{StaticResource ModernDataGridStyle}" ItemsSource="{Binding Subscriptions}" MaxHeight="240">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Dịch vụ" Binding="{Binding Service.ServiceName}" Width="*" />
+                            <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity, StringFormat={}{0:N0}}" Width="90" />
+                            <DataGridTextColumn Header="Đơn giá" Binding="{Binding UnitPrice, StringFormat={}{0:N0} ₫}" Width="110" />
+                            <DataGridCheckBoxColumn Header="Theo người" Binding="{Binding IsPerPerson}" Width="90" />
+                            <DataGridTemplateColumn Header="" Width="60">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Style="{StaticResource DangerButtonStyle}" Padding="8,6"
+                                                Command="{Binding DataContext.RemoveSubscriptionCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                CommandParameter="{Binding}">
+                                            <iconPacks:PackIconMaterial Kind="Delete" Width="13" Height="13" />
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <TextBlock Text="* Phí 'Theo người' sẽ nhân với số người ở khi tạo hóa đơn." Foreground="#9E9E9E" FontSize="11" Margin="0,8,0,0" />
+                    <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource ErrorBrush}"
+                              Visibility="{Binding ErrorMessage, Converter={StaticResource NullToVisibilityConverter}}" Margin="0,4,0,0" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,14,0,0">
+                        <Button Content="Đóng" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding CloseSubscriptionDialogCommand}" Padding="24,10" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Dialog Trả phòng -->
+        <Grid Grid.RowSpan="2" Visibility="{Binding IsCheckoutDialogOpen, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Border Background="#80000000" />
+            <Border MaxWidth="440" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="Trả phòng / Thanh lý hợp đồng" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,4" />
+                    <TextBlock Text="{Binding CheckoutContract.ContractNo, StringFormat=Hợp đồng: {0}}" Foreground="#757575" FontSize="12" Margin="0,0,0,16" />
+
+                    <Border Background="#FFF8E1" CornerRadius="8" Padding="12" Margin="0,0,0,12">
+                        <StackPanel>
+                            <Grid Margin="0,0,0,6">
+                                <TextBlock Text="Công nợ chưa thu:" Foreground="#757575" />
+                                <TextBlock Text="{Binding CheckoutOutstanding, StringFormat={}{0:N0} ₫}" HorizontalAlignment="Right" FontWeight="Bold" Foreground="#C62828" />
+                            </Grid>
+                            <Grid>
+                                <TextBlock Text="Tiền cọc:" Foreground="#757575" />
+                                <TextBlock Text="{Binding CheckoutContract.DepositAmount, StringFormat={}{0:N0} ₫}" HorizontalAlignment="Right" FontWeight="Bold" Foreground="#7A1E3A" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Text="Khấu trừ vào cọc (công nợ, hư hỏng...)" Style="{StaticResource FormLabelStyle}" />
+                    <TextBox Text="{Binding CheckoutDeduction, UpdateSourceTrigger=PropertyChanged}" Height="40" Padding="12,0" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" Margin="0,0,0,12" />
+
+                    <Border Background="#E8F5E9" CornerRadius="8" Padding="12" Margin="0,0,0,8">
+                        <Grid>
+                            <TextBlock Text="Hoàn trả khách:" FontWeight="Bold" Foreground="#2E7D32" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding CheckoutRefund, StringFormat={}{0:N0} ₫}" HorizontalAlignment="Right" FontWeight="Bold" FontSize="16" Foreground="#2E7D32" />
+                        </Grid>
+                    </Border>
+
+                    <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource ErrorBrush}"
+                              Visibility="{Binding ErrorMessage, Converter={StaticResource NullToVisibilityConverter}}" Margin="0,4,0,0" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+                        <Button Content="Hủy" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding CloseCheckoutDialogCommand}" Padding="24,10" />
+                        <Button Content="Xác nhận trả phòng" Style="{StaticResource DangerButtonStyle}" Command="{Binding ConfirmCheckoutCommand}" Padding="24,10" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Dialog Nhường phòng -->
+        <Grid Grid.RowSpan="2" Visibility="{Binding IsTransferDialogOpen, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Border Background="#80000000" />
+            <Border MaxWidth="440" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="Nhường phòng cho khách khác" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,4" />
+                    <TextBlock Text="{Binding TransferContract.ContractNo, StringFormat=HĐ hiện tại: {0}}" Foreground="#757575" FontSize="12" Margin="0,0,0,16" />
+
+                    <TextBlock Text="Khách nhận phòng *" Style="{StaticResource FormLabelStyle}" />
+                    <ComboBox ItemsSource="{Binding Tenants}" SelectedValuePath="Id" SelectedValue="{Binding TransferNewTenantId}" DisplayMemberPath="FullName" Height="40" Margin="0,0,0,14" />
+
+                    <CheckBox Content="Giữ nguyên tiền cọc (chuyển sang khách mới, không hoàn/thu lại)" IsChecked="{Binding TransferKeepDeposit}" Margin="0,0,0,12" />
+
+                    <TextBlock Text="Tiền cọc khách mới (nếu không giữ cọc cũ)" Style="{StaticResource FormLabelStyle}" />
+                    <TextBox Text="{Binding TransferNewDeposit, UpdateSourceTrigger=PropertyChanged}" Height="40" Padding="12,0" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="{StaticResource DividerBrush}" Margin="0,0,0,8" />
+
+                    <TextBlock Text="* HĐ cũ sẽ kết thúc, tạo HĐ mới cùng phòng và sao chép dịch vụ đã đăng ký." Foreground="#9E9E9E" FontSize="11" />
+                    <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource ErrorBrush}"
+                              Visibility="{Binding ErrorMessage, Converter={StaticResource NullToVisibilityConverter}}" Margin="0,4,0,0" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+                        <Button Content="Hủy" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding CloseTransferDialogCommand}" Padding="24,10" />
+                        <Button Content="Xác nhận nhường phòng" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ConfirmTransferCommand}" Padding="24,10" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>
+

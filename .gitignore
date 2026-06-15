@@ -1,0 +1,21 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+*.user
+
+# Visual Studio
+.vs/
+
+# Test & coverage
+TestResults/
+*.trx
+coverage*.xml
+
+# SQLite database (dữ liệu chạy thực tế, không commit)
+*.db
+*.db-shm
+*.db-wal
+
+# Logs
+logs/
+*.log

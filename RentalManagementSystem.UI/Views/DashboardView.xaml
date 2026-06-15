@@ -1,0 +1,286 @@
+﻿<UserControl x:Class="RentalManagementSystem.UI.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Grid Grid.Row="0" Margin="0,0,0,24">
+                <StackPanel>
+                    <TextBlock Text="Dashboard" Style="{StaticResource PageTitleStyle}" />
+                    <TextBlock Text="{Binding CurrentDateDisplay}" Foreground="{StaticResource TextSecondaryBrush}"
+                              FontSize="13" Margin="0,4,0,0" />
+                </StackPanel>
+                <Button HorizontalAlignment="Right" Command="{Binding RefreshCommand}"
+                       Style="{StaticResource SecondaryButtonStyle}" Padding="16,8">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="Refresh" Width="16" Height="16" VerticalAlignment="Center" />
+                        <TextBlock Text="Làm mới" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <!-- Cảnh báo hành động -->
+            <Border Grid.Row="1" Margin="0,0,0,20" CornerRadius="12" Background="#FFF8E1"
+                    BorderBrush="#FFE082" BorderThickness="1" Padding="16"
+                    Visibility="{Binding HasAlerts, Converter={StaticResource BoolToVisibilityConverter}}">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                        <iconPacks:PackIconMaterial Kind="AlertCircle" Width="18" Height="18" Foreground="#F57F17" VerticalAlignment="Center" />
+                        <TextBlock Text="Cần xử lý" FontWeight="Bold" Foreground="#F57F17" FontSize="15" Margin="8,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <WrapPanel>
+                        <!-- Chưa nhập chỉ số -->
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,10,0" Padding="14,10"
+                                Command="{Binding NavigateCommand}" CommandParameter="DienNuoc"
+                                Visibility="{Binding RoomsMissingReading, Converter={StaticResource PositiveNumberToVisibilityConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="LightningBolt" Width="15" Height="15" Foreground="#F57F17" VerticalAlignment="Center" />
+                                <TextBlock VerticalAlignment="Center" Margin="8,0,0,0">
+                                    <Run Text="{Binding RoomsMissingReading}" FontWeight="Bold" /><Run Text=" phòng chưa nhập chỉ số" />
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <!-- Chưa tạo hóa đơn -->
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,10,0" Padding="14,10"
+                                Command="{Binding NavigateCommand}" CommandParameter="HoaDon"
+                                Visibility="{Binding RoomsNoInvoice, Converter={StaticResource PositiveNumberToVisibilityConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="Receipt" Width="15" Height="15" Foreground="#7A1E3A" VerticalAlignment="Center" />
+                                <TextBlock VerticalAlignment="Center" Margin="8,0,0,0">
+                                    <Run Text="{Binding RoomsNoInvoice}" FontWeight="Bold" /><Run Text=" phòng chưa có hóa đơn" />
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <!-- Quá hạn -->
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,10,0" Padding="14,10"
+                                Command="{Binding NavigateCommand}" CommandParameter="HoaDon"
+                                Visibility="{Binding OverdueInvoices, Converter={StaticResource PositiveNumberToVisibilityConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="ClockAlert" Width="15" Height="15" Foreground="#C62828" VerticalAlignment="Center" />
+                                <TextBlock VerticalAlignment="Center" Margin="8,0,0,0">
+                                    <Run Text="{Binding OverdueInvoices}" FontWeight="Bold" /><Run Text=" hóa đơn quá hạn (" /><Run Text="{Binding OverdueAmount, StringFormat={}{0:N0}đ}" /><Run Text=")" />
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <!-- HĐ sắp hết hạn -->
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,10,0" Padding="14,10"
+                                Command="{Binding NavigateCommand}" CommandParameter="HopDong"
+                                Visibility="{Binding AlertExpiringContracts, Converter={StaticResource PositiveNumberToVisibilityConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="FileDocument" Width="15" Height="15" Foreground="#6A1B9A" VerticalAlignment="Center" />
+                                <TextBlock VerticalAlignment="Center" Margin="8,0,0,0">
+                                    <Run Text="{Binding AlertExpiringContracts}" FontWeight="Bold" /><Run Text=" HĐ sắp hết hạn" />
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- KPI Cards -->
+            <UniformGrid Grid.Row="2" Rows="2" Columns="4" Margin="0,0,0,24">
+                <!-- Total Rooms -->
+                <Border Style="{StaticResource KpiCardStyle}" Margin="0,0,12,12">
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="Tổng Phòng" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{Binding TotalRooms}" FontSize="36" FontWeight="Bold"
+                                      Foreground="{StaticResource PrimaryBrush}" />
+                            <TextBlock Text="phòng" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" />
+                        </StackPanel>
+                        <Border HorizontalAlignment="Right" VerticalAlignment="Top"
+                               Width="48" Height="48" CornerRadius="24" Background="#F7E9EE">
+                            <iconPacks:PackIconMaterial Kind="DoorOpen" Width="24" Height="24"
+                                                       Foreground="{StaticResource PrimaryBrush}"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Available Rooms -->
+                <Border Style="{StaticResource KpiCardStyle}" Margin="0,0,12,12">
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="Phòng Trống" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{Binding AvailableRooms}" FontSize="36" FontWeight="Bold"
+                                      Foreground="{StaticResource SuccessBrush}" />
+                            <TextBlock Text="có thể cho thuê" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" />
+                        </StackPanel>
+                        <Border HorizontalAlignment="Right" VerticalAlignment="Top"
+                               Width="48" Height="48" CornerRadius="24" Background="#E8F5E9">
+                            <iconPacks:PackIconMaterial Kind="CheckCircle" Width="24" Height="24"
+                                                       Foreground="{StaticResource SuccessBrush}"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Occupied Rooms -->
+                <Border Style="{StaticResource KpiCardStyle}" Margin="0,0,12,12">
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="Đang Thuê" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{Binding OccupiedRooms}" FontSize="36" FontWeight="Bold"
+                                      Foreground="{StaticResource AccentBrush}" />
+                            <TextBlock Text="phòng" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" />
+                        </StackPanel>
+                        <Border HorizontalAlignment="Right" VerticalAlignment="Top"
+                               Width="48" Height="48" CornerRadius="24" Background="#E0F7FA">
+                            <iconPacks:PackIconMaterial Kind="Account" Width="24" Height="24"
+                                                       Foreground="{StaticResource AccentBrush}"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Total Tenants -->
+                <Border Style="{StaticResource KpiCardStyle}" Margin="0,0,0,12">
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="Khách Thuê" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{Binding TotalTenants}" FontSize="36" FontWeight="Bold"
+                                      Foreground="#9C27B0" />
+                            <TextBlock Text="người" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" />
+                        </StackPanel>
+                        <Border HorizontalAlignment="Right" VerticalAlignment="Top"
+                               Width="48" Height="48" CornerRadius="24" Background="#F3E5F5">
+                            <iconPacks:PackIconMaterial Kind="AccountGroup" Width="24" Height="24"
+                                                       Foreground="#9C27B0"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Monthly Revenue -->
+                <Border Style="{StaticResource KpiCardStyle}" Margin="0,0,12,0">
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="Doanh Thu Tháng" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{Binding MonthlyRevenue, StringFormat={}{0:N0} ₫}"
+                                      FontSize="24" FontWeight="Bold" Foreground="{StaticResource SuccessBrush}" />
+                            <TextBlock Text="đã thu" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" />
+                        </StackPanel>
+                        <Border HorizontalAlignment="Right" VerticalAlignment="Top"
+                               Width="48" Height="48" CornerRadius="24" Background="#E8F5E9">
+                            <iconPacks:PackIconMaterial Kind="TrendingUp" Width="24" Height="24"
+                                                       Foreground="{StaticResource SuccessBrush}"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Total Unpaid -->
+                <Border Style="{StaticResource KpiCardStyle}" Margin="0,0,12,0">
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="Công Nợ" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{Binding TotalUnpaid, StringFormat={}{0:N0} ₫}"
+                                      FontSize="24" FontWeight="Bold" Foreground="{StaticResource ErrorBrush}" />
+                            <TextBlock Text="chưa thu" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" />
+                        </StackPanel>
+                        <Border HorizontalAlignment="Right" VerticalAlignment="Top"
+                               Width="48" Height="48" CornerRadius="24" Background="#FFEBEE">
+                            <iconPacks:PackIconMaterial Kind="AlertCircle" Width="24" Height="24"
+                                                       Foreground="{StaticResource ErrorBrush}"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Expiring Contracts -->
+                <Border Style="{StaticResource KpiCardStyle}" Margin="0,0,12,0">
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="Sắp Hết Hạn" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock Text="{Binding ExpiringContracts}" FontSize="36" FontWeight="Bold"
+                                      Foreground="{StaticResource WarningBrush}" />
+                            <TextBlock Text="hợp đồng (30 ngày)" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" />
+                        </StackPanel>
+                        <Border HorizontalAlignment="Right" VerticalAlignment="Top"
+                               Width="48" Height="48" CornerRadius="24" Background="#FFF8E1">
+                            <iconPacks:PackIconMaterial Kind="ClockAlert" Width="24" Height="24"
+                                                       Foreground="{StaticResource WarningBrush}"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Occupancy Rate -->
+                <Border Style="{StaticResource KpiCardStyle}" Margin="0,0,0,0">
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="Tỷ Lệ Lấp Đầy" Style="{StaticResource FormLabelStyle}" />
+                            <TextBlock FontSize="36" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0:0}%">
+                                        <Binding Path="OccupiedRooms" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <TextBlock Text="tổng số phòng" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" />
+                        </StackPanel>
+                        <Border HorizontalAlignment="Right" VerticalAlignment="Top"
+                               Width="48" Height="48" CornerRadius="24" Background="#F7E9EE">
+                            <iconPacks:PackIconMaterial Kind="ChartDonut" Width="24" Height="24"
+                                                       Foreground="{StaticResource PrimaryBrush}"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
+                </Border>
+            </UniformGrid>
+
+            <!-- Charts Row -->
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Revenue Chart -->
+                <Border Grid.Column="0" Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Doanh Thu &amp; Chi Phí Năm 2026"
+                                  Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,16" />
+                        <lvc:CartesianChart Series="{Binding RevenueSeries}"
+                                           XAxes="{Binding RevenueXAxes}"
+                                           Height="280" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Occupancy Pie Chart -->
+                <Border Grid.Column="2" Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Tỷ Lệ Lấp Đầy"
+                                  Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,16" />
+                        <lvc:PieChart Series="{Binding OccupancySeries}"
+                                     Height="200" />
+                        <StackPanel Margin="0,12,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="12" Height="12" CornerRadius="2" Background="#9E2A4D" />
+                                <TextBlock Text="Đang thuê" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" />
+                                <TextBlock Text="{Binding OccupiedRooms}" FontSize="12" FontWeight="SemiBold" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="12" Height="12" CornerRadius="2" Background="#E0E0E0" />
+                                <TextBlock Text="Phòng trống" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" />
+                                <TextBlock Text="{Binding AvailableRooms}" FontSize="12" FontWeight="SemiBold" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</UserControl>
+

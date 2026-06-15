@@ -1,0 +1,62 @@
+name: CI - Build & Test
+
+# Chạy tự động mỗi lần push hoặc mở Pull Request lên main
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    # WPF (net8.0-windows) yêu cầu Windows runner
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout mã nguồn
+        uses: actions/checkout@v4
+
+      - name: Cài đặt .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Khôi phục gói (restore)
+        run: dotnet restore RentalManagementSystem.sln
+
+      - name: Build toàn bộ giải pháp
+        run: dotnet build RentalManagementSystem.sln --configuration Release --no-restore
+
+      - name: Chạy test + đo độ phủ mã
+        run: >
+          dotnet test RentalManagementSystem.Tests/RentalManagementSystem.Tests.csproj
+          --configuration Release
+          --no-build
+          --logger "trx;LogFileName=test-results.trx"
+          --collect:"XPlat Code Coverage"
+          --settings coverlet.runsettings
+          --results-directory ./TestResults
+
+      - name: Kiểm tra ngưỡng độ phủ (tối thiểu 80%)
+        shell: pwsh
+        run: |
+          $file = Get-ChildItem -Path ./TestResults -Recurse -Filter coverage.cobertura.xml | Select-Object -First 1
+          if (-not $file) { Write-Error "Khong tim thay file coverage."; exit 1 }
+          [xml]$xml = Get-Content $file.FullName
+          $rate = [double]$xml.coverage.'line-rate'
+          $pct = [math]::Round($rate * 100, 1)
+          $threshold = 80.0
+          Write-Host "Do phu dong (line coverage): $pct%  (nguong: $threshold%)"
+          if ($pct -lt $threshold) {
+            Write-Error "Do phu $pct% THAP hon nguong $threshold% -> FAIL"
+            exit 1
+          }
+          Write-Host "Dat nguong do phu. PASS."
+
+      - name: Tải lên kết quả test & độ phủ
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: ./TestResults

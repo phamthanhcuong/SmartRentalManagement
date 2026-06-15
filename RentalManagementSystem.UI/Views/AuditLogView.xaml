@@ -1,0 +1,40 @@
+<UserControl x:Class="RentalManagementSystem.UI.Views.AuditLogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <StackPanel>
+                <TextBlock Text="Nhật Ký Thao Tác" Style="{StaticResource PageTitleStyle}" />
+                <TextBlock Text="Ghi lại ai đã làm gì, khi nào — phục vụ truy vết và đối chiếu khi có tranh chấp."
+                           Foreground="{StaticResource TextSecondaryBrush}" FontSize="13" Margin="0,4,0,0" />
+            </StackPanel>
+            <Button HorizontalAlignment="Right" Command="{Binding RefreshCommand}"
+                    Style="{StaticResource SecondaryButtonStyle}" Padding="16,8">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Kind="Refresh" Width="16" Height="16" VerticalAlignment="Center" />
+                    <TextBlock Text="Làm mới" VerticalAlignment="Center" Margin="8,0,0,0" />
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <Border Grid.Row="1" Style="{StaticResource CardStyle}" Padding="0">
+            <DataGrid Style="{StaticResource ModernDataGridStyle}" ItemsSource="{Binding Logs}"
+                      AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Thời gian" Binding="{Binding Timestamp, StringFormat=dd/MM/yyyy HH:mm:ss}" Width="160" />
+                    <DataGridTextColumn Header="Người dùng" Binding="{Binding UserName}" Width="130" />
+                    <DataGridTextColumn Header="Thao tác" Binding="{Binding Action}" Width="180" />
+                    <DataGridTextColumn Header="Đối tượng" Binding="{Binding EntityType}" Width="110" />
+                    <DataGridTextColumn Header="Mã" Binding="{Binding EntityRef}" Width="120" />
+                    <DataGridTextColumn Header="Chi tiết" Binding="{Binding Details}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</UserControl>
